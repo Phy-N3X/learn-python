@@ -45,7 +45,7 @@
 
 ## 🟢 Phase 1 - Fundamentals
 
-<details> <summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 1: Absolute Basics</span></summary>
+<details> <summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 1: Absolute Basics ⭐</span></summary>
 
 | #  | Topic                  | Description                              | Status |
 |:--:|:-----------------------|:-----------------------------------------|:------:|
@@ -96,9 +96,7 @@
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
-
-### Module 3: Conditionals ⭐
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 3: Conditionals ⭐</span></summary>
 
 | #  | Topic          | Description                     | Status  |
 |:--:|:---------------|:--------------------------------|:-------:|
@@ -109,10 +107,12 @@
 | 35 | One-line `if`  | Ternary operator                |    ⬜    |
 | 36 | `match/case`   | Pattern matching (Python 3.10+) |    ⬜    |
 
+</details>
+
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 4: Loops ⭐</span></summary>
 
 ### Module 4: Loops ⭐
 
@@ -130,12 +130,12 @@
 | 46 | `enumerate()`        | Index + value at the same time |    ⬜    |
 | 47 | `zip()`              | Iterating over multiple lists  |    ⬜    |
 
+</details>
+
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
-
-### Module 5: Lists ⭐
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 5: Lists ⭐</span></summary>
 
 | #  | Topic                | Description                | Status  |
 |:--:|:---------------------|:---------------------------|:-------:|
@@ -157,10 +157,12 @@
 | 63 | Nested lists         | List of lists (matrices)   |    ⬜    |
 | 64 | List comprehension   | Creating lists in one line |    ⬜    |
 
+</details>
+
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 6: Tuples</span></summary>
 
 ### Module 6: Tuples
 
@@ -172,12 +174,12 @@
 | 68 | When to use tuples   | Constant data, dictionary keys  |    ⬜    |
 | 69 | Single-element tuple | Comma required `(1,)` not `(1)` |    ⬜    |
 
+</details>
+
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
-
-### Module 7: Dictionaries ⭐
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 7: Dictionaries ⭐</span></summary>
 
 | #  | Topic                 | Description              | Status  |
 |:--:|:----------------------|:-------------------------|:-------:|
@@ -194,12 +196,12 @@
 | 80 | Nested dictionaries   | Dictionary in dictionary |    ⬜    |
 | 81 | Dict comprehension    | Like list comprehension  |    ⬜    |
 
+</details>
+
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
-
-### Module 8: Sets
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 8: Sets ⭐</span></summary>
 
 | #  | Topic                | Description                     | Status  |
 |:--:|:---------------------|:--------------------------------|:-------:|
@@ -209,14 +211,14 @@
 | 85 | `in` in a set        | Very fast lookup                |    ⬜    |
 | 86 | When to use sets     | Unique values, fast lookup      |    ⬜    |
 
+</details>
+
 ---
 
 ## 🟡 Phase 2 - Intermediate
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
-
-### Module 9: Functions ⭐
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 9: Functions ⭐</span></summary>
 
 | #  | Topic                  | Description                   | Status  |
 |:--:|:-----------------------|:------------------------------|:-------:|
@@ -233,13 +235,13 @@
 | 97 | Recursion              | Function calling itself       |    ⬜    |
 | 98 | Higher-order functions | `map()` `filter()` `reduce()` |    ⬜    |
 
+</details>
+
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 10: File Handling ⭐</span></summary>
 
-### Module 10: File Handling ⭐
- 
 |  #  | Topic             | Description                            | Status  |
 |:---:|:------------------|:---------------------------------------|:-------:|
 | 99  | Opening a file    | `open()`, modes `r` `w` `a`            |    ⬜    |
@@ -251,12 +253,12 @@
 | 105 | File paths        | `os.path`, `pathlib`                   |    ⬜    |
 | 106 | Binary files      | `rb`, `wb`                             |    ⬜    |
 
+</details>
+
 ---
 
 <details>
-<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
-
-### Module 11: Exceptions and Errors ⭐
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 11: Exceptions and Errors ⭐</span></summary>
 
 |  #  | Topic               | Description                            | Status  |
 |:---:|:--------------------|:---------------------------------------|:-------:|
@@ -268,9 +270,12 @@
 | 112 | `raise`             | Raising custom errors                  |    ⬜    |
 | 113 | Custom exceptions   | Exception classes                      |    ⬜    |
 
+</details>
+
 ---
 
-### Module 12: Modules and Packages ⭐
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 12: Modules and Packages ⭐</span></summary>
 
 |  #  | Topic                | Description                      | Status  |
 |:---:|:---------------------|:---------------------------------|:-------:|
@@ -283,9 +288,12 @@
 | 120 | `__name__`           | When a file is run directly      |    ⬜    |
 | 121 | Virtual environments | Project isolation `venv` `conda` |    ⬜    |
 
+</details>
+
 ---
 
-### Module 13: Object-Oriented Programming (OOP) ⭐
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 13: Object-Oriented Programming (OOP) ⭐</span></summary>
 
 |  #  | Topic            | Description                   | Status  |
 |:---:|:-----------------|:------------------------------|:-------:|
@@ -305,9 +313,12 @@
 | 135 | `@staticmethod`  | Method without `self`         |    ⬜    |
 | 136 | `@classmethod`   | Class method                  |    ⬜    |
 
+</details>
+
 ---
 
-### Module 14: Advanced Data Structures
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 14: Advanced Data Structures</span></summary>
 
 |  #  | Topic                     | Description                   | Status  |
 |:---:|:--------------------------|:------------------------------|:-------:|
@@ -318,11 +329,14 @@
 | 141 | `heapq`                   | Priority queue                |    ⬜    |
 | 142 | Stack and Queue           | Classic data structures       |    ⬜    |
 
+</details>
+
 ---
 
 ## 🟠 Phase 3 - Advanced
 
-### Module 15: Iterators and Generators
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 15: Iterators and Generators</span></summary>
 
 |  #  | Topic                 | Description                | Status  |
 |:---:|:----------------------|:---------------------------|:-------:|
@@ -332,9 +346,12 @@
 | 146 | `itertools`           | Advanced iteration         |    ⬜    |
 | 147 | Lazy evaluation       | Compute only when needed   |    ⬜    |
 
+</details>
+
 ---
 
-### Module 16: Decorators
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 16: Decorators</span></summary>
 
 |  #  | Topic                    | Description                                | Status  |
 |:---:|:-------------------------|:-------------------------------------------|:-------:|
@@ -345,9 +362,12 @@
 | 152 | `functools.wraps`        | Preserving metadata                        |    ⬜    |
 | 153 | Built-in decorators      | `@staticmethod` `@classmethod` `@property` |    ⬜    |
 
+</details>
+
 ---
 
-### Module 17: Memory Management and Performance
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 17: Memory Management and Performance</span></summary>
 
 |  #  | Topic                      | Description               | Status  |
 |:---:|:---------------------------|:--------------------------|:-------:|
@@ -357,9 +377,12 @@
 | 157 | Loop optimization          | When list comp is faster  |    ⬜    |
 | 158 | Memory management          | How Python manages memory |    ⬜    |
 
+</details>
+
 ---
 
-### Module 18: Concurrency
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 18: Concurrency</span></summary>
 
 |  #  | Topic                | Description              | Status  |
 |:---:|:---------------------|:-------------------------|:-------:|
@@ -369,9 +392,12 @@
 | 162 | `concurrent.futures` | Simple parallel tasks    |    ⬜    |
 | 163 | GIL                  | Global Interpreter Lock  |    ⬜    |
 
+</details>
+
 ---
 
-### Module 19: Testing ⭐
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 19: Testing ⭐</span></summary>
 
 |  #  | Topic                   | Description                      | Status  |
 |:---:|:------------------------|:---------------------------------|:-------:|
@@ -382,9 +408,12 @@
 | 168 | Mocking                 | Simulating external dependencies |    ⬜    |
 | 169 | Coverage                | How much code is tested          |    ⬜    |
 
+</details>
+
 ---
 
-### Module 20: Advanced OOP
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 20: Advanced OOP</span></summary>
 
 |  #  | Topic                 | Description                     | Status  |
 |:---:|:----------------------|:--------------------------------|:-------:|
@@ -395,9 +424,12 @@
 | 174 | `__slots__`           | Memory optimization for classes |    ⬜    |
 | 175 | Protocols (typing)    | Duck typing with types          |    ⬜    |
 
+</details>
+
 ---
 
-### Module 21: Type Hints and Typing
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 21: Type Hints and Typing</span></summary>
 
 |  #  | Topic            | Description            | Status  |
 |:---:|:-----------------|:-----------------------|:-------:|
@@ -408,9 +440,12 @@
 | 180 | `mypy`           | Static type checking   |    ⬜    |
 | 181 | `dataclasses`    | Automatic data classes |    ⬜    |
 
+</details>
+
 ---
 
-### Module 22: Data Tools
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 22: Data Tools</span></summary>
 
 |  #  | Topic                      | Description            | Status  |
 |:---:|:---------------------------|:-----------------------|:-------:|
@@ -422,11 +457,14 @@
 | 187 | `logging`                  | Professional logs      |    ⬜    |
 | 188 | `configparser`             | Configuration files    |    ⬜    |
 
+</details>
+
 ---
 
 ## 🔴 Phase 4 - Expert
 
-### Module 23: Scientific Libraries ⭐
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 23: Scientific Libraries ⭐</span></summary>
 
 |  #  | Topic       | Description                      | Status  |
 |:---:|:------------|:---------------------------------|:-------:|
@@ -437,9 +475,12 @@
 | 193 | SciPy       | Advanced math and statistics     |    ⬜    |
 | 194 | Statsmodels | Statistical models               |    ⬜    |
 
+</details>
+
 ---
 
-### Module 24: Machine Learning ⭐
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 24: Machine learning ⭐</span></summary>
 
 |  #  | Topic                 | Description                     | Status  |
 |:---:|:----------------------|:--------------------------------|:-------:|
@@ -453,9 +494,12 @@
 | 202 | Pipeline              | Automated ML workflow           |    ⬜    |
 | 203 | Feature engineering   | Creating and selecting features |    ⬜    |
 
+</details>
+
 ---
 
-### Module 25: Deep Learning ⭐
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 25: Deep Learning ⭐</span></summary>
 
 |  #  | Topic             | Description                              | Status  |
 |:---:|:------------------|:-----------------------------------------|:-------:|
@@ -468,9 +512,12 @@
 | 210 | Transfer Learning | Fine-tuning pre-trained models           |    ⬜    |
 | 211 | Hugging Face      | Pre-trained language models              |    ⬜    |
 
+</details>
+
 ---
 
-### Module 26: Advanced Python Topics
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 26: Advanced Python Topics</span></summary>
 
 |  #  | Topic                | Description                    | Status  |
 |:---:|:---------------------|:-------------------------------|:-------:|
@@ -482,22 +529,13 @@
 | 217 | Cython               | Compiled Python                |    ⬜    |
 | 218 | Numba                | JIT compilation `@jit`         |    ⬜    |
 
----
-
-## 📅 Timeline
-
-| Phase           | Modules  |    Time    | Goal                              |
-|:----------------|:--------:|:----------:|:----------------------------------|
-| 🟢 Fundamentals |   1-8    | 09.04.26 - | Write simple scripts              |
-| 🟡 Intermediate |   9-14   |            | Write useful programs             |
-| 🟠 Advanced     |  15-22   |            | Write professional code           |
-| 🔴 Expert       |  23-26   |            | Specialize in ML and Data Science |
+</details>
 
 ---
 
-## 📁 Repository Structure
+## 📁 Repository Structure 📁
 
-### m = module ###
+> m = module
 ```
 learn-python/
 │
@@ -543,7 +581,7 @@ learn-python/
 
 ---
 
-## 📚 Resources
+## 📚 Resources 📚
 
 ### Official Documentation
 | Resource            |                   Link                   |
@@ -578,8 +616,6 @@ learn-python/
 <div align="center">
 
 **218 topics · 26 modules · 4 phases**
-
-⭐ Leave a star if you find this repo useful!
 
 ![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Phy-N3X.learn-python)
 
