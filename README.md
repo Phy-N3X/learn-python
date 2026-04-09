@@ -26,9 +26,8 @@
 - [Phase 2 - Intermediate](#-phase-2---intermediate)
 - [Phase 3 - Advanced](#-phase-3---advanced)
 - [Phase 4 - Expert](#-phase-4---expert)
-- [Timeline](#-timeline)
-- [Repository Structure](#-repository-structure)
-- [Resources](#-resources)
+- [Repository Structure](#-repository-structure-)
+- [Resources](#-resources-)
 
 ---
 
@@ -114,8 +113,6 @@
 <details>
 <summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 4: Loops ⭐</span></summary>
 
-### Module 4: Loops ⭐
-
 | #  | Topic                | Description                    | Status  |
 |:--:|:---------------------|:-------------------------------|:-------:|
 | 37 | `for` loop           | Iterating over a sequence      |    ⬜    |
@@ -163,8 +160,6 @@
 
 <details>
 <summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 6: Tuples</span></summary>
-
-### Module 6: Tuples
 
 | #  | Topic                | Description                     | Status  |
 |:--:|:---------------------|:--------------------------------|:-------:|
