@@ -45,7 +45,7 @@
 
 ## 🟢 Phase 1 - Fundamentals
 
-### Module 1: Absolute Basics
+<details> <summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 1: Absolute Basics</span></summary>
 
 | #  | Topic                  | Description                              | Status |
 |:--:|:-----------------------|:-----------------------------------------|:------:|
@@ -62,9 +62,13 @@
 | 11 | Type conversion        | `int()` `float()` `str()` `bool()`       |   ⬜    |
 | 12 | f-strings              | Text formatting                          |   ⬜    |
 
+</details>
+
 ---
 
-### Module 2: Strings in Detail
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
 
 | #  | Topic                         | Description                          | Status  |
 |:--:|:------------------------------|:-------------------------------------|:-------:|
@@ -87,9 +91,14 @@
 | 29 | String multiplication         | Repetition `"ab" * 3`                |    ⬜    |
 | 30 | `in` / `not in`               | Checking if contained                |    ⬜    |
 
+</details>
+
 ---
 
-### Module 3: Conditionals
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
+### Module 3: Conditionals ⭐
 
 | #  | Topic          | Description                     | Status  |
 |:--:|:---------------|:--------------------------------|:-------:|
@@ -102,7 +111,10 @@
 
 ---
 
-### Module 4: Loops
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
+### Module 4: Loops ⭐
 
 | #  | Topic                | Description                    | Status  |
 |:--:|:---------------------|:-------------------------------|:-------:|
@@ -120,7 +132,10 @@
 
 ---
 
-### Module 5: Lists
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
+### Module 5: Lists ⭐
 
 | #  | Topic                | Description                | Status  |
 |:--:|:---------------------|:---------------------------|:-------:|
@@ -144,6 +159,9 @@
 
 ---
 
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
 ### Module 6: Tuples
 
 | #  | Topic                | Description                     | Status  |
@@ -156,7 +174,10 @@
 
 ---
 
-### Module 7: Dictionaries
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
+### Module 7: Dictionaries ⭐
 
 | #  | Topic                 | Description              | Status  |
 |:--:|:----------------------|:-------------------------|:-------:|
@@ -175,6 +196,9 @@
 
 ---
 
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
 ### Module 8: Sets
 
 | #  | Topic                | Description                     | Status  |
@@ -189,7 +213,10 @@
 
 ## 🟡 Phase 2 - Intermediate
 
-### Module 9: Functions
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
+### Module 9: Functions ⭐
 
 | #  | Topic                  | Description                   | Status  |
 |:--:|:-----------------------|:------------------------------|:-------:|
@@ -208,8 +235,11 @@
 
 ---
 
-### Module 10: File Handling
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
 
+### Module 10: File Handling ⭐
+ 
 |  #  | Topic             | Description                            | Status  |
 |:---:|:------------------|:---------------------------------------|:-------:|
 | 99  | Opening a file    | `open()`, modes `r` `w` `a`            |    ⬜    |
@@ -223,7 +253,10 @@
 
 ---
 
-### Module 11: Exceptions and Errors
+<details>
+<summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 2: Strings in Detail ⭐</span></summary>
+
+### Module 11: Exceptions and Errors ⭐
 
 |  #  | Topic               | Description                            | Status  |
 |:---:|:--------------------|:---------------------------------------|:-------:|
@@ -237,7 +270,7 @@
 
 ---
 
-### Module 12: Modules and Packages
+### Module 12: Modules and Packages ⭐
 
 |  #  | Topic                | Description                      | Status  |
 |:---:|:---------------------|:---------------------------------|:-------:|
@@ -252,7 +285,7 @@
 
 ---
 
-### Module 13: Object-Oriented Programming (OOP)
+### Module 13: Object-Oriented Programming (OOP) ⭐
 
 |  #  | Topic            | Description                   | Status  |
 |:---:|:-----------------|:------------------------------|:-------:|
@@ -338,7 +371,7 @@
 
 ---
 
-### Module 19: Testing
+### Module 19: Testing ⭐
 
 |  #  | Topic                   | Description                      | Status  |
 |:---:|:------------------------|:---------------------------------|:-------:|
@@ -393,7 +426,7 @@
 
 ## 🔴 Phase 4 - Expert
 
-### Module 23: Scientific Libraries
+### Module 23: Scientific Libraries ⭐
 
 |  #  | Topic       | Description                      | Status  |
 |:---:|:------------|:---------------------------------|:-------:|
@@ -406,7 +439,7 @@
 
 ---
 
-### Module 24: Machine Learning
+### Module 24: Machine Learning ⭐
 
 |  #  | Topic                 | Description                     | Status  |
 |:---:|:----------------------|:--------------------------------|:-------:|
@@ -422,7 +455,7 @@
 
 ---
 
-### Module 25: Deep Learning
+### Module 25: Deep Learning ⭐
 
 |  #  | Topic             | Description                              | Status  |
 |:---:|:------------------|:-----------------------------------------|:-------:|
