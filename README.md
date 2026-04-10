@@ -6,6 +6,7 @@
 
 > A complete Python learning roadmap from absolute basics to expert level.
 > This repository documents my journey towards becoming a **bioinformatician** / **AI Drug Discovery specialist**.
+> This project contains 218 lessons divided in 26 modules.
 
 ---
 
@@ -605,13 +606,3 @@ learn-python/
 
 - 🐙 GitHub: [@Phy-N3X](https://github.com/Phy-N3X)
 - 🔬 Bioinformatics repo: [bioinformatics-python](https://github.com/Phy-N3X/bioinformatics-python)
-
----
-
-<div align="center">
-
-**218 topics · 26 modules · 4 phases**
-
-![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Phy-N3X.learn-python)
-
-</div>
