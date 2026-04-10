@@ -2,846 +2,763 @@
 # MODULE 01 | PROJECT 02 - Personal Finance Tracker
 # ============================================================
 # Difficulty  : ⭐⭐⭐⭐ (Hard)
-# Covers      : ALL topics from Module 01
+# Covers      : ONLY Module 01 topics:
 #               Variables, Numbers, Strings, Booleans,
-#               Print, Input, Comments, Math, Comparisons,
-#               Logical operators, Type conversion, F-strings
+#               Print, Input, Comments, Math Operators,
+#               Comparison Operators, Logical Operators,
+#               Type Conversion, F-Strings
+# NO: functions, if/else, loops, imports, lists, dicts
 # Estimated   : 3-5 hours
 # ============================================================
 #
-# OVERVIEW:
-# Build a complete personal finance tracker that:
-# - Tracks income and expenses
-# - Categorizes transactions
-# - Calculates statistics
-# - Generates formatted reports
-# - Validates all input
-# - Uses every concept from Module 01
-#
-# This project has NO biology - it's pure Python applied
-# to a real-world everyday use case.
+# HOW THIS PROJECT WORKS:
+# All financial data is stored in individual variables.
+# All calculations use only arithmetic and string operators.
+# All output uses f-strings and print().
+# NO functions, NO if statements, NO loops, NO imports.
 # ============================================================
 
 
-import math
-import datetime
+# ============================================================
+# PROGRAM HEADER
+# ============================================================
+
+PROGRAM_NAME  = "Personal Finance Tracker"
+VERSION       = "1.0.0"
+PERIOD        = "January 2025"
+CURRENCY      = "PLN"
+WIDTH         = 64
+
+print(f"{'╔' + '═' * (WIDTH - 2) + '╗'}")
+print(f"║ {PROGRAM_NAME:^{WIDTH - 4}} ║")
+print(f"║ {'Version ' + VERSION:^{WIDTH - 4}} ║")
+print(f"║ {'Period: ' + PERIOD:^{WIDTH - 4}} ║")
+print(f"{'╚' + '═' * (WIDTH - 2) + '╝'}")
 
 
 # ============================================================
-# SECTION 1: CONFIGURATION AND CONSTANTS
+# SECTION 1: INCOME TRANSACTIONS
 # ============================================================
+# Tests: variables, numbers, strings, type conversion
 
-PROGRAM_NAME    = "Personal Finance Tracker"
-VERSION         = "1.0.0"
-CURRENCY        = "PLN"
-CURRENCY_SYMBOL = "zł"
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 1: INCOME")
+print(f"{'─' * WIDTH}")
 
-# Transaction types
-TYPE_INCOME  = "income"
-TYPE_EXPENSE = "expense"
+# Each transaction: date, description, amount, category
+income_date_1   = "2025-01-01"
+income_desc_1   = "Monthly salary"
+income_amount_1 = 8500.00
+income_cat_1    = "salary"
 
-# Valid categories
-INCOME_CATEGORIES = {
-    "salary", "freelance", "investment",
-    "gift", "bonus", "other_income"
-}
+income_date_2   = "2025-01-15"
+income_desc_2   = "Freelance Python project"
+income_amount_2 = 1200.00
+income_cat_2    = "freelance"
 
-EXPENSE_CATEGORIES = {
-    "food", "transport", "housing", "entertainment",
-    "healthcare", "education", "clothing",
-    "utilities", "subscriptions", "other_expense"
-}
+income_date_3   = "2025-01-20"
+income_desc_3   = "Stock dividend"
+income_amount_3 = 150.00
+income_cat_3    = "investment"
 
-# Budget thresholds (monthly)
-BUDGET_WARNING_THRESHOLD = 0.80    # warn at 80% of budget
-BUDGET_CRITICAL_THRESHOLD = 0.95   # critical at 95% of budget
+income_date_4   = "2025-01-25"
+income_desc_4   = "Birthday gift"
+income_amount_4 = 200.00
+income_cat_4    = "gift"
 
-# Tax rate (for income calculations)
-INCOME_TAX_RATE = 0.19   # 19% flat tax
+# Calculate totals by category
+total_salary     = income_amount_1
+total_freelance  = income_amount_2
+total_investment = income_amount_3
+total_gift       = income_amount_4
 
+# Grand total income
+total_income = (
+    income_amount_1 +
+    income_amount_2 +
+    income_amount_3 +
+    income_amount_4
+)
 
-# ============================================================
-# SECTION 2: SAMPLE TRANSACTION DATA
-# ============================================================
-# This simulates a month of financial data
-# Format: (date, description, amount, type, category)
+# Transaction count
+income_count = 4
 
-TRANSACTIONS = [
-    # Income
-    ("2025-01-01", "Monthly salary",       8500.00, TYPE_INCOME,  "salary"),
-    ("2025-01-15", "Freelance Python work", 1200.00, TYPE_INCOME,  "freelance"),
-    ("2025-01-20", "Stock dividend",         150.00, TYPE_INCOME,  "investment"),
-    ("2025-01-25", "Birthday gift",          200.00, TYPE_INCOME,  "gift"),
-
-    # Fixed expenses
-    ("2025-01-01", "Rent",                 2200.00, TYPE_EXPENSE, "housing"),
-    ("2025-01-01", "Internet",               89.99, TYPE_EXPENSE, "utilities"),
-    ("2025-01-01", "Phone plan",             49.99, TYPE_EXPENSE, "utilities"),
-    ("2025-01-01", "Netflix",                49.00, TYPE_EXPENSE, "subscriptions"),
-    ("2025-01-01", "Spotify",                23.99, TYPE_EXPENSE, "subscriptions"),
-    ("2025-01-01", "Gym membership",         99.00, TYPE_EXPENSE, "healthcare"),
-
-    # Variable expenses - food
-    ("2025-01-02", "Grocery shopping",      320.50, TYPE_EXPENSE, "food"),
-    ("2025-01-07", "Restaurant dinner",      85.00, TYPE_EXPENSE, "food"),
-    ("2025-01-10", "Coffee shop",            42.50, TYPE_EXPENSE, "food"),
-    ("2025-01-14", "Grocery shopping",      280.30, TYPE_EXPENSE, "food"),
-    ("2025-01-18", "Pizza delivery",         55.00, TYPE_EXPENSE, "food"),
-    ("2025-01-21", "Grocery shopping",      195.80, TYPE_EXPENSE, "food"),
-    ("2025-01-28", "Grocery shopping",      310.20, TYPE_EXPENSE, "food"),
-
-    # Transport
-    ("2025-01-03", "Monthly bus pass",      110.00, TYPE_EXPENSE, "transport"),
-    ("2025-01-12", "Uber ride",              35.50, TYPE_EXPENSE, "transport"),
-    ("2025-01-19", "Fuel",                  180.00, TYPE_EXPENSE, "transport"),
-    ("2025-01-25", "Car parking",            45.00, TYPE_EXPENSE, "transport"),
-
-    # Entertainment
-    ("2025-01-06", "Cinema tickets",         60.00, TYPE_EXPENSE, "entertainment"),
-    ("2025-01-13", "Video game",             79.99, TYPE_EXPENSE, "entertainment"),
-    ("2025-01-20", "Concert tickets",       150.00, TYPE_EXPENSE, "entertainment"),
-    ("2025-01-27", "Books",                  89.99, TYPE_EXPENSE, "entertainment"),
-
-    # Healthcare
-    ("2025-01-08", "Doctor visit",          150.00, TYPE_EXPENSE, "healthcare"),
-    ("2025-01-09", "Pharmacy",               67.50, TYPE_EXPENSE, "healthcare"),
-
-    # Education
-    ("2025-01-05", "Online course",         199.00, TYPE_EXPENSE, "education"),
-    ("2025-01-15", "Technical book",         59.99, TYPE_EXPENSE, "education"),
-
-    # Clothing
-    ("2025-01-11", "Winter jacket",         399.00, TYPE_EXPENSE, "clothing"),
-    ("2025-01-22", "Running shoes",         299.00, TYPE_EXPENSE, "clothing"),
-
-    # Other
-    ("2025-01-16", "Haircut",               80.00, TYPE_EXPENSE, "other_expense"),
-    ("2025-01-24", "Household items",       145.50, TYPE_EXPENSE, "other_expense"),
-]
-
-# Monthly budget limits per category
-MONTHLY_BUDGETS = {
-    "food":          1000.00,
-    "transport":      400.00,
-    "housing":       2300.00,
-    "entertainment":  300.00,
-    "healthcare":     300.00,
-    "education":      300.00,
-    "clothing":       400.00,
-    "utilities":      200.00,
-    "subscriptions":  150.00,
-    "other_expense":  300.00,
-}
+print(f"\n  {'Date':<12} {'Description':<28} {'Category':<14} {'Amount':>10}")
+print(f"  {'─' * 66}")
+print(f"  {income_date_1:<12} {income_desc_1:<28} {income_cat_1:<14} {income_amount_1:>10,.2f}")
+print(f"  {income_date_2:<12} {income_desc_2:<28} {income_cat_2:<14} {income_amount_2:>10,.2f}")
+print(f"  {income_date_3:<12} {income_desc_3:<28} {income_cat_3:<14} {income_amount_3:>10,.2f}")
+print(f"  {income_date_4:<12} {income_desc_4:<28} {income_cat_4:<14} {income_amount_4:>10,.2f}")
+print(f"  {'─' * 66}")
+print(f"  {'TOTAL INCOME':<56} {total_income:>10,.2f}")
+print(f"  {'Transactions':<56} {income_count:>10}")
 
 
 # ============================================================
-# SECTION 3: DISPLAY UTILITIES
+# SECTION 2: EXPENSE TRANSACTIONS
 # ============================================================
-# Tests: f-strings, print(), string formatting
-
-
-def format_currency(amount, symbol=CURRENCY_SYMBOL, decimals=2):
-    """
-    Format a number as currency string.
-
-    Args:
-        amount  (float): Amount to format.
-        symbol  (str)  : Currency symbol.
-        decimals(int)  : Decimal places.
-
-    Returns:
-        str: Formatted currency string e.g. "1,234.56 zł"
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def format_percent(ratio, decimals=1):
-    """
-    Format a ratio as percentage string.
-
-    Args:
-        ratio   (float): Ratio (0.0 to 1.0).
-        decimals(int)  : Decimal places.
-
-    Returns:
-        str: Formatted percentage e.g. "85.0%"
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def make_bar(ratio, width=20, fill="█", empty="░"):
-    """
-    Create a progress bar for a ratio 0.0-1.0.
-
-    Args:
-        ratio (float): Fill ratio (0.0 to 1.0).
-        width (int)  : Total bar width.
-        fill  (str)  : Fill character.
-        empty (str)  : Empty character.
-
-    Returns:
-        str: Progress bar string.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def print_header():
-    """Print program header banner."""
-    # YOUR CODE HERE:
-    # Width = 64
-    # Show program name, version, current date
-    pass
-
-
-def print_section(title):
-    """Print a formatted section header."""
-    # YOUR CODE HERE:
-    pass
-
-
-def print_divider(char="─", width=64):
-    """Print a divider line."""
-    # YOUR CODE HERE:
-    pass
-
-
-# ============================================================
-# SECTION 4: TRANSACTION PROCESSING
-# ============================================================
-# Tests: strings, numbers, type conversion, comparisons
-
-
-def parse_transaction(transaction_tuple):
-    """
-    Parse a transaction tuple into a dict.
-
-    Args:
-        transaction_tuple (tuple): (date, desc, amount, type, category)
-
-    Returns:
-        dict: Parsed transaction with all fields.
-    """
-    date, description, amount, trans_type, category = transaction_tuple
-
-    # YOUR CODE HERE:
-    # Return dict with:
-    # date (str), description (str), amount (float),
-    # type (str), category (str),
-    # is_income (bool), is_expense (bool)
-    pass
-
-
-def get_all_transactions():
-    """
-    Parse all transactions from TRANSACTIONS list.
-
-    Returns:
-        list: List of parsed transaction dicts.
-    """
-    # YOUR CODE HERE:
-    # Use parse_transaction() on each item in TRANSACTIONS
-    pass
-
-
-def filter_by_type(transactions, trans_type):
-    """
-    Filter transactions by type (income or expense).
-
-    Args:
-        transactions (list): List of transaction dicts.
-        trans_type   (str) : TYPE_INCOME or TYPE_EXPENSE.
-
-    Returns:
-        list: Filtered transactions.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def filter_by_category(transactions, category):
-    """
-    Filter transactions by category.
-
-    Args:
-        transactions (list): List of transaction dicts.
-        category     (str) : Category name.
-
-    Returns:
-        list: Filtered transactions.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def get_total(transactions):
-    """
-    Calculate total amount of transactions.
-
-    Args:
-        transactions (list): List of transaction dicts.
-
-    Returns:
-        float: Sum of all amounts.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def get_category_totals(transactions):
-    """
-    Calculate total amount per category.
-
-    Args:
-        transactions (list): List of transaction dicts.
-
-    Returns:
-        dict: {category: total_amount}
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-# ============================================================
-# SECTION 5: FINANCIAL CALCULATIONS
-# ============================================================
-# Tests: math operators, type conversion, comparisons
-
-
-def calculate_savings(income_total, expense_total):
-    """
-    Calculate net savings.
-
-    Args:
-        income_total  (float): Total income.
-        expense_total (float): Total expenses.
-
-    Returns:
-        float: Net savings (can be negative).
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def calculate_savings_rate(income_total, expense_total):
-    """
-    Calculate savings rate as percentage of income.
-
-    Args:
-        income_total  (float): Total income.
-        expense_total (float): Total expenses.
-
-    Returns:
-        float: Savings rate (0.0 to 100.0).
-                Returns 0.0 if income is 0.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def calculate_tax(gross_income):
-    """
-    Calculate income tax using flat rate.
-
-    Args:
-        gross_income (float): Gross income before tax.
-
-    Returns:
-        tuple: (tax_amount, net_income)
-    """
-    # YOUR CODE HERE:
-    # Use INCOME_TAX_RATE constant
-    pass
-
-
-def calculate_budget_usage(category, spent):
-    """
-    Calculate budget usage for a category.
-
-    Args:
-        category (str)  : Category name.
-        spent    (float): Amount spent in category.
-
-    Returns:
-        dict: {budget, spent, remaining, ratio, status}
-        status: "ok", "warning", or "critical"
-    """
-    # YOUR CODE HERE:
-    # Use MONTHLY_BUDGETS dict
-    # Use BUDGET_WARNING_THRESHOLD and BUDGET_CRITICAL_THRESHOLD
-    # Return None if category not in MONTHLY_BUDGETS
-    pass
-
-
-def get_largest_expense(transactions):
-    """
-    Find the single largest expense transaction.
-
-    Args:
-        transactions (list): List of all transaction dicts.
-
-    Returns:
-        dict: The transaction with highest amount (expenses only).
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def get_largest_income(transactions):
-    """
-    Find the single largest income transaction.
-
-    Args:
-        transactions (list): List of all transaction dicts.
-
-    Returns:
-        dict: The transaction with highest amount (income only).
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def calculate_daily_average(transactions, days=31):
-    """
-    Calculate average daily spending.
-
-    Args:
-        transactions (list): Expense transactions.
-        days         (int) : Number of days in period.
-
-    Returns:
-        float: Average daily expense.
-    """
-    # YOUR CODE HERE:
-    pass
+# Tests: variables, numbers, strings, math operators
+
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 2: EXPENSES")
+print(f"{'─' * WIDTH}")
+
+# --- HOUSING ---
+exp_housing_1_date   = "2025-01-01"
+exp_housing_1_desc   = "Rent"
+exp_housing_1_amount = 2200.00
+exp_housing_1_cat    = "housing"
+
+# --- UTILITIES ---
+exp_util_1_date   = "2025-01-01"
+exp_util_1_desc   = "Internet"
+exp_util_1_amount = 89.99
+exp_util_1_cat    = "utilities"
+
+exp_util_2_date   = "2025-01-01"
+exp_util_2_desc   = "Phone plan"
+exp_util_2_amount = 49.99
+exp_util_2_cat    = "utilities"
+
+# --- SUBSCRIPTIONS ---
+exp_sub_1_date   = "2025-01-01"
+exp_sub_1_desc   = "Netflix"
+exp_sub_1_amount = 49.00
+exp_sub_1_cat    = "subscriptions"
+
+exp_sub_2_date   = "2025-01-01"
+exp_sub_2_desc   = "Spotify"
+exp_sub_2_amount = 23.99
+exp_sub_2_cat    = "subscriptions"
+
+# --- FOOD ---
+exp_food_1_date   = "2025-01-02"
+exp_food_1_desc   = "Grocery shopping"
+exp_food_1_amount = 320.50
+exp_food_1_cat    = "food"
+
+exp_food_2_date   = "2025-01-07"
+exp_food_2_desc   = "Restaurant dinner"
+exp_food_2_amount = 85.00
+exp_food_2_cat    = "food"
+
+exp_food_3_date   = "2025-01-10"
+exp_food_3_desc   = "Coffee shop"
+exp_food_3_amount = 42.50
+exp_food_3_cat    = "food"
+
+exp_food_4_date   = "2025-01-14"
+exp_food_4_desc   = "Grocery shopping"
+exp_food_4_amount = 280.30
+exp_food_4_cat    = "food"
+
+exp_food_5_date   = "2025-01-18"
+exp_food_5_desc   = "Pizza delivery"
+exp_food_5_amount = 55.00
+exp_food_5_cat    = "food"
+
+exp_food_6_date   = "2025-01-21"
+exp_food_6_desc   = "Grocery shopping"
+exp_food_6_amount = 195.80
+exp_food_6_cat    = "food"
+
+exp_food_7_date   = "2025-01-28"
+exp_food_7_desc   = "Grocery shopping"
+exp_food_7_amount = 310.20
+exp_food_7_cat    = "food"
+
+# --- TRANSPORT ---
+exp_trans_1_date   = "2025-01-03"
+exp_trans_1_desc   = "Monthly bus pass"
+exp_trans_1_amount = 110.00
+exp_trans_1_cat    = "transport"
+
+exp_trans_2_date   = "2025-01-12"
+exp_trans_2_desc   = "Uber ride"
+exp_trans_2_amount = 35.50
+exp_trans_2_cat    = "transport"
+
+exp_trans_3_date   = "2025-01-19"
+exp_trans_3_desc   = "Fuel"
+exp_trans_3_amount = 180.00
+exp_trans_3_cat    = "transport"
+
+exp_trans_4_date   = "2025-01-25"
+exp_trans_4_desc   = "Car parking"
+exp_trans_4_amount = 45.00
+exp_trans_4_cat    = "transport"
+
+# --- ENTERTAINMENT ---
+exp_ent_1_date   = "2025-01-06"
+exp_ent_1_desc   = "Cinema tickets"
+exp_ent_1_amount = 60.00
+exp_ent_1_cat    = "entertainment"
+
+exp_ent_2_date   = "2025-01-13"
+exp_ent_2_desc   = "Video game"
+exp_ent_2_amount = 79.99
+exp_ent_2_cat    = "entertainment"
+
+exp_ent_3_date   = "2025-01-20"
+exp_ent_3_desc   = "Concert tickets"
+exp_ent_3_amount = 150.00
+exp_ent_3_cat    = "entertainment"
+
+exp_ent_4_date   = "2025-01-27"
+exp_ent_4_desc   = "Books"
+exp_ent_4_amount = 89.99
+exp_ent_4_cat    = "entertainment"
+
+# --- HEALTHCARE ---
+exp_health_1_date   = "2025-01-01"
+exp_health_1_desc   = "Gym membership"
+exp_health_1_amount = 99.00
+exp_health_1_cat    = "healthcare"
+
+exp_health_2_date   = "2025-01-08"
+exp_health_2_desc   = "Doctor visit"
+exp_health_2_amount = 150.00
+exp_health_2_cat    = "healthcare"
+
+exp_health_3_date   = "2025-01-09"
+exp_health_3_desc   = "Pharmacy"
+exp_health_3_amount = 67.50
+exp_health_3_cat    = "healthcare"
+
+# --- EDUCATION ---
+exp_edu_1_date   = "2025-01-05"
+exp_edu_1_desc   = "Online course"
+exp_edu_1_amount = 199.00
+exp_edu_1_cat    = "education"
+
+exp_edu_2_date   = "2025-01-15"
+exp_edu_2_desc   = "Technical book"
+exp_edu_2_amount = 59.99
+exp_edu_2_cat    = "education"
+
+# --- CLOTHING ---
+exp_cloth_1_date   = "2025-01-11"
+exp_cloth_1_desc   = "Winter jacket"
+exp_cloth_1_amount = 399.00
+exp_cloth_1_cat    = "clothing"
+
+exp_cloth_2_date   = "2025-01-22"
+exp_cloth_2_desc   = "Running shoes"
+exp_cloth_2_amount = 299.00
+exp_cloth_2_cat    = "clothing"
+
+# --- OTHER ---
+exp_other_1_date   = "2025-01-16"
+exp_other_1_desc   = "Haircut"
+exp_other_1_amount = 80.00
+exp_other_1_cat    = "other"
+
+exp_other_2_date   = "2025-01-24"
+exp_other_2_desc   = "Household items"
+exp_other_2_amount = 145.50
+exp_other_2_cat    = "other"
+
+# --- CATEGORY TOTALS ---
+total_housing      = exp_housing_1_amount
+total_utilities    = exp_util_1_amount    + exp_util_2_amount
+total_subscriptions= exp_sub_1_amount    + exp_sub_2_amount
+total_food         = (exp_food_1_amount  + exp_food_2_amount +
+                      exp_food_3_amount  + exp_food_4_amount +
+                      exp_food_5_amount  + exp_food_6_amount +
+                      exp_food_7_amount)
+total_transport    = (exp_trans_1_amount + exp_trans_2_amount +
+                      exp_trans_3_amount + exp_trans_4_amount)
+total_entertainment= (exp_ent_1_amount   + exp_ent_2_amount +
+                      exp_ent_3_amount   + exp_ent_4_amount)
+total_healthcare   = (exp_health_1_amount + exp_health_2_amount +
+                      exp_health_3_amount)
+total_education    = exp_edu_1_amount    + exp_edu_2_amount
+total_clothing     = exp_cloth_1_amount  + exp_cloth_2_amount
+total_other        = exp_other_1_amount  + exp_other_2_amount
+
+# Grand total expenses
+total_expenses = (
+    total_housing       +
+    total_utilities     +
+    total_subscriptions +
+    total_food          +
+    total_transport     +
+    total_entertainment +
+    total_healthcare    +
+    total_education     +
+    total_clothing      +
+    total_other
+)
+
+expense_count = 28
+
+print(f"\n  Expense Summary by Category:")
+print(f"  {'─' * 40}")
+print(f"  {'Category':<18} {'Amount':>12} {'Count':>6}")
+print(f"  {'─' * 40}")
+print(f"  {'Housing':<18} {total_housing:>12,.2f} {1:>6}")
+print(f"  {'Utilities':<18} {total_utilities:>12,.2f} {2:>6}")
+print(f"  {'Subscriptions':<18} {total_subscriptions:>12,.2f} {2:>6}")
+print(f"  {'Food':<18} {total_food:>12,.2f} {7:>6}")
+print(f"  {'Transport':<18} {total_transport:>12,.2f} {4:>6}")
+print(f"  {'Entertainment':<18} {total_entertainment:>12,.2f} {4:>6}")
+print(f"  {'Healthcare':<18} {total_healthcare:>12,.2f} {3:>6}")
+print(f"  {'Education':<18} {total_education:>12,.2f} {2:>6}")
+print(f"  {'Clothing':<18} {total_clothing:>12,.2f} {2:>6}")
+print(f"  {'Other':<18} {total_other:>12,.2f} {2:>6}")
+print(f"  {'─' * 40}")
+print(f"  {'TOTAL':<18} {total_expenses:>12,.2f} {expense_count:>6}")
 
 
 # ============================================================
-# SECTION 6: STATISTICS
+# SECTION 3: FINANCIAL OVERVIEW
 # ============================================================
-# Tests: math operators, comparisons, type conversion
+# Tests: math operators, comparisons, booleans, f-strings
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 3: FINANCIAL OVERVIEW")
+print(f"{'─' * WIDTH}")
 
-def calculate_statistics(amounts):
-    """
-    Calculate descriptive statistics for a list of amounts.
+# Core calculations
+net_savings   = total_income - total_expenses
+savings_rate  = net_savings / total_income * 100
+expense_ratio = total_expenses / total_income * 100
 
-    Args:
-        amounts (list): List of float values.
+# Tax calculation (19% flat tax on income)
+tax_rate      = 0.19
+tax_amount    = total_income * tax_rate
+net_income    = total_income - tax_amount
+after_tax_savings = net_income - total_expenses
 
-    Returns:
-        dict: count, total, mean, min, max, range, median
-    """
-    if not amounts:
-        return {
-            "count":  0,
-            "total":  0.0,
-            "mean":   0.0,
-            "min":    0.0,
-            "max":    0.0,
-            "range":  0.0,
-            "median": 0.0,
-        }
+# Daily averages (January = 31 days)
+days_in_month       = 31
+daily_income        = total_income  / days_in_month
+daily_expenses      = total_expenses / days_in_month
+daily_savings       = net_savings   / days_in_month
 
-    # YOUR CODE HERE:
-    # count, total, mean, min, max, range
-    # median: sort the list, pick middle value
-    #   if even count: average of two middle values
-    pass
+# Annual projections
+annual_income       = total_income   * 12
+annual_expenses     = total_expenses * 12
+annual_savings      = net_savings    * 12
 
+# Financial health checks (booleans)
+is_saving_money    = net_savings > 0
+is_good_savings    = savings_rate >= 20.0     # 20% savings rate is good
+is_affordable      = expense_ratio <= 70.0    # spending < 70% of income
+is_tax_efficient   = net_income > total_expenses
+has_emergency_fund = net_savings >= (total_expenses * 3)  # 3 months expenses
 
-def find_most_expensive_category(category_totals):
-    """
-    Find the category with highest total spending.
+# Progress bars (using string multiplication - no loops!)
+bar_width      = 25
+savings_ratio  = min(savings_rate / 100, 1.0)
+expense_ratio2 = min(expense_ratio / 100, 1.0)
+savings_filled = int(savings_ratio * bar_width)
+expense_filled = int(expense_ratio2 * bar_width)
+savings_bar    = "█" * savings_filled + "░" * (bar_width - savings_filled)
+expense_bar    = "█" * expense_filled + "░" * (bar_width - expense_filled)
 
-    Args:
-        category_totals (dict): {category: total}
-
-    Returns:
-        tuple: (category_name, amount)
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def find_most_common_category(transactions):
-    """
-    Find the category with most transactions.
-
-    Args:
-        transactions (list): List of expense transactions.
-
-    Returns:
-        tuple: (category_name, count)
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-# ============================================================
-# SECTION 7: REPORT GENERATORS
-# ============================================================
-# Tests: f-strings, print(), ALL formatting
-
-
-def generate_overview_report(transactions):
-    """
-    Generate a high-level financial overview report.
-
-    Args:
-        transactions (list): All parsed transactions.
-    """
-    income_txns  = filter_by_type(transactions, TYPE_INCOME)
-    expense_txns = filter_by_type(transactions, TYPE_EXPENSE)
-
-    total_income  = get_total(income_txns)
-    total_expense = get_total(expense_txns)
-    net_savings   = calculate_savings(total_income, total_expense)
-    savings_rate  = calculate_savings_rate(total_income, total_expense)
-    tax, net      = calculate_tax(total_income)
-
-    print_section("FINANCIAL OVERVIEW - JANUARY 2025")
-
-    # YOUR CODE HERE - print formatted overview:
-    #
-    # INCOME & EXPENSES
-    # Total Income  :  10,050.00 zł
-    # Total Expenses:   7,832.75 zł
-    # Net Savings   :   2,217.25 zł
-    # Savings Rate  :  22.1%
-    #
-    # TAX CALCULATION
-    # Gross Income  :  10,050.00 zł
-    # Tax (19%)     :   1,909.50 zł
-    # Net Income    :   8,140.50 zł
-    #
-    # TRANSACTION COUNT
-    # Income:    X transactions
-    # Expenses:  X transactions
-    # Total:     X transactions
-    pass
-
-
-def generate_income_report(transactions):
-    """
-    Generate detailed income report.
-
-    Args:
-        transactions (list): All parsed transactions.
-    """
-    income_txns = filter_by_type(transactions, TYPE_INCOME)
-    category_totals = get_category_totals(income_txns)
-
-    print_section("INCOME REPORT")
-
-    # YOUR CODE HERE - print:
-    # By category with amounts and percentages
-    # Individual transactions
-    # Total at bottom
-    #
-    # Income by Category:
-    # salary         │████████████████████│  8,500.00 zł  84.6%
-    # freelance      │████░░░░░░░░░░░░░░░░│  1,200.00 zł  11.9%
-    # investment     │░░░░░░░░░░░░░░░░░░░░│    150.00 zł   1.5%
-    # gift           │░░░░░░░░░░░░░░░░░░░░│    200.00 zł   2.0%
-    pass
-
-
-def generate_expense_report(transactions):
-    """
-    Generate detailed expense report with budget tracking.
-
-    Args:
-        transactions (list): All parsed transactions.
-    """
-    expense_txns    = filter_by_type(transactions, TYPE_EXPENSE)
-    category_totals = get_category_totals(expense_txns)
-    total_expenses  = get_total(expense_txns)
-
-    print_section("EXPENSE REPORT")
-
-    # YOUR CODE HERE - print:
-    # By category with budget tracking
-    # Status indicators: ✓ OK / ⚠ WARNING / ✗ CRITICAL
-    #
-    # Category         Spent        Budget       Used     Status
-    # ─────────────────────────────────────────────────────────
-    # food           1,289.30 zł  1,000.00 zł  128.9%  ✗ OVER
-    # transport        370.50 zł    400.00 zł   92.6%  ⚠ HIGH
-    # housing        2,200.00 zł  2,300.00 zł   95.7%  ⚠ HIGH
-    # ...
-    pass
-
-
-def generate_transaction_list(transactions, title="ALL TRANSACTIONS"):
-    """
-    Generate a formatted list of transactions.
-
-    Args:
-        transactions (list): Transactions to display.
-        title        (str) : Section title.
-    """
-    print_section(title)
-
-    # YOUR CODE HERE - print formatted table:
-    #
-    # Date        │ Description          │ Category      │  Amount
-    # ────────────┼──────────────────────┼───────────────┼──────────
-    # 2025-01-01  │ Monthly salary       │ salary        │ +8,500.00
-    # 2025-01-01  │ Rent                 │ housing       │ -2,200.00
-    # ...
-    #
-    # Income shown with + prefix
-    # Expenses shown with - prefix
-    pass
-
-
-def generate_statistics_report(transactions):
-    """
-    Generate statistical analysis report.
-
-    Args:
-        transactions (list): All parsed transactions.
-    """
-    expense_txns   = filter_by_type(transactions, TYPE_EXPENSE)
-    income_txns    = filter_by_type(transactions, TYPE_INCOME)
-
-    expense_amounts = [t["amount"] for t in expense_txns]
-    income_amounts  = [t["amount"] for t in income_txns]
-
-    expense_stats   = calculate_statistics(expense_amounts)
-    income_stats    = calculate_statistics(income_amounts)
-
-    print_section("STATISTICAL ANALYSIS")
-
-    # YOUR CODE HERE - print:
-    # Expense Statistics:
-    #   Count   : X transactions
-    #   Total   : X,XXX.XX zł
-    #   Mean    : XXX.XX zł
-    #   Median  : XXX.XX zł
-    #   Minimum : XX.XX zł (description)
-    #   Maximum : X,XXX.XX zł (description)
-    #   Range   : X,XXX.XX zł
-    #
-    # Income Statistics: (same format)
-    #
-    # Daily Averages:
-    #   Daily income  : XXX.XX zł
-    #   Daily expenses: XXX.XX zł
-    #   Daily savings : XXX.XX zł
-    pass
-
-
-def generate_budget_summary(transactions):
-    """
-    Generate budget compliance summary.
-
-    Args:
-        transactions (list): All parsed transactions.
-    """
-    expense_txns    = filter_by_type(transactions, TYPE_EXPENSE)
-    category_totals = get_category_totals(expense_txns)
-
-    print_section("BUDGET SUMMARY")
-
-    # YOUR CODE HERE:
-    # Count categories: on_budget, warning, critical, over
-    # Print overall budget health score
-    # List any over-budget categories
-    # Give recommendation
-    #
-    # Budget Health: 6/10 categories within budget
-    # ████████████░░░░░░░░  60.0%
-    #
-    # ⚠  WARNING CATEGORIES:
-    #    transport  : 92.6% of budget used
-    #    housing    : 95.7% of budget used
-    #
-    # ✗  OVER BUDGET:
-    #    food       : 128.9% (289.30 zł over)
-    #
-    # 💡 RECOMMENDATION:
-    #    Reduce food spending by ~96.43 zł to meet budget.
-    pass
-
-
-def generate_full_report(transactions):
-    """
-    Generate the complete financial report.
-
-    Args:
-        transactions (list): All parsed transactions.
-    """
-    print_header()
-
-    generate_overview_report(transactions)
-    generate_income_report(transactions)
-    generate_expense_report(transactions)
-    generate_statistics_report(transactions)
-    generate_budget_summary(transactions)
-    generate_transaction_list(transactions)
-
-    print(f"\n{'═' * 64}")
-    print(f"  Report generated: {datetime.datetime.now():%Y-%m-%d %H:%M:%S}")
-    print(f"{'═' * 64}\n")
+print(f"""
+  ╔══════════════════════════════════════════════════════════╗
+  ║              MONTHLY FINANCIAL SUMMARY                  ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  INCOME & EXPENSES                                      ║
+  ║  Total Income   : {total_income:>12,.2f} {CURRENCY}                    ║
+  ║  Total Expenses : {total_expenses:>12,.2f} {CURRENCY}                    ║
+  ║  Net Savings    : {net_savings:>12,.2f} {CURRENCY}                    ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  SAVINGS RATE                                           ║
+  ║  [{savings_bar}] {savings_rate:5.1f}%            ║
+  ║  EXPENSE RATIO                                          ║
+  ║  [{expense_bar}] {expense_ratio:5.1f}%            ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  TAX CALCULATION (19% flat rate)                        ║
+  ║  Gross Income   : {total_income:>12,.2f} {CURRENCY}                    ║
+  ║  Tax Amount     : {tax_amount:>12,.2f} {CURRENCY}                    ║
+  ║  Net Income     : {net_income:>12,.2f} {CURRENCY}                    ║
+  ║  After-tax save : {after_tax_savings:>12,.2f} {CURRENCY}                    ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  DAILY AVERAGES                                         ║
+  ║  Daily income   : {daily_income:>12,.2f} {CURRENCY}                    ║
+  ║  Daily expenses : {daily_expenses:>12,.2f} {CURRENCY}                    ║
+  ║  Daily savings  : {daily_savings:>12,.2f} {CURRENCY}                    ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  ANNUAL PROJECTIONS                                     ║
+  ║  Annual income  : {annual_income:>12,.2f} {CURRENCY}                    ║
+  ║  Annual expenses: {annual_expenses:>12,.2f} {CURRENCY}                    ║
+  ║  Annual savings : {annual_savings:>12,.2f} {CURRENCY}                    ║
+  ╚══════════════════════════════════════════════════════════╝
+""")
 
 
 # ============================================================
-# SECTION 8: INPUT VALIDATION
+# SECTION 4: BUDGET TRACKING
 # ============================================================
-# Tests: input(), type conversion, logical operators, strings
+# Tests: math operators, comparisons, booleans, f-strings
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 4: BUDGET TRACKING")
+print(f"{'─' * WIDTH}")
 
-def validate_amount(raw_amount):
-    """
-    Validate and convert a raw amount string to float.
+# Monthly budget limits
+budget_housing      = 2300.00
+budget_utilities    = 200.00
+budget_subs         = 150.00
+budget_food         = 1000.00
+budget_transport    = 400.00
+budget_entertainment= 300.00
+budget_healthcare   = 300.00
+budget_education    = 300.00
+budget_clothing     = 400.00
+budget_other        = 300.00
 
-    Rules:
-    - Must be a valid positive number
-    - Must be greater than 0
-    - Maximum 2 decimal places
+# Budget usage (spent / budget * 100)
+usage_housing       = total_housing       / budget_housing       * 100
+usage_utilities     = total_utilities     / budget_utilities     * 100
+usage_subs          = total_subscriptions / budget_subs          * 100
+usage_food          = total_food          / budget_food          * 100
+usage_transport     = total_transport     / budget_transport     * 100
+usage_entertainment = total_entertainment / budget_entertainment * 100
+usage_healthcare    = total_healthcare    / budget_healthcare    * 100
+usage_education     = total_education     / budget_education     * 100
+usage_clothing      = total_clothing      / budget_clothing      * 100
+usage_other         = total_other         / budget_other         * 100
 
-    Args:
-        raw_amount (str): Raw input string.
+# Remaining budget
+rem_housing       = budget_housing       - total_housing
+rem_utilities     = budget_utilities     - total_utilities
+rem_subs          = budget_subs          - total_subscriptions
+rem_food          = budget_food          - total_food
+rem_transport     = budget_transport     - total_transport
+rem_entertainment = budget_entertainment - total_entertainment
+rem_healthcare    = budget_healthcare    - total_healthcare
+rem_education     = budget_education     - total_education
+rem_clothing      = budget_clothing      - total_clothing
+rem_other         = budget_other         - total_other
 
-    Returns:
-        tuple: (is_valid bool, amount float or None, error_msg str)
-    """
-    # YOUR CODE HERE:
-    pass
+# Status booleans
+ok_housing       = usage_housing       <= 80.0
+ok_utilities     = usage_utilities     <= 80.0
+ok_subs          = usage_subs          <= 80.0
+ok_food          = usage_food          <= 80.0
+ok_transport     = usage_transport     <= 80.0
+ok_entertainment = usage_entertainment <= 80.0
+ok_healthcare    = usage_healthcare    <= 80.0
+ok_education     = usage_education     <= 80.0
+ok_clothing      = usage_clothing      <= 80.0
+ok_other         = usage_other         <= 80.0
 
+warn_housing       = usage_housing       > 80.0 and usage_housing       <= 95.0
+warn_food          = usage_food          > 80.0 and usage_food          <= 95.0
+warn_transport     = usage_transport     > 80.0 and usage_transport     <= 95.0
+warn_entertainment = usage_entertainment > 80.0 and usage_entertainment <= 95.0
+warn_healthcare    = usage_healthcare    > 80.0 and usage_healthcare    <= 95.0
+warn_clothing      = usage_clothing      > 80.0 and usage_clothing      <= 95.0
 
-def validate_category(category, trans_type):
-    """
-    Validate category for given transaction type.
+over_housing       = usage_housing       > 100.0
+over_food          = usage_food          > 100.0
+over_transport     = usage_transport     > 100.0
+over_entertainment = usage_entertainment > 100.0
+over_clothing      = usage_clothing      > 100.0
 
-    Args:
-        category   (str): Category to validate.
-        trans_type (str): TYPE_INCOME or TYPE_EXPENSE.
+# Status symbols (ternary in f-string)
+status_housing       = "✗ OVER" if over_housing       else ("⚠ WARN" if warn_housing       else "✓ OK  ")
+status_utilities     = "✓ OK  "
+status_subs          = "✓ OK  "
+status_food          = "✗ OVER" if over_food          else ("⚠ WARN" if warn_food          else "✓ OK  ")
+status_transport     = "✗ OVER" if over_transport     else ("⚠ WARN" if warn_transport     else "✓ OK  ")
+status_entertainment = "✗ OVER" if over_entertainment else ("⚠ WARN" if warn_entertainment else "✓ OK  ")
+status_healthcare    = "✓ OK  " if ok_healthcare else ("⚠ WARN" if warn_healthcare else "✗ OVER")
+status_education     = "✓ OK  " if ok_education  else "⚠ WARN"
+status_clothing      = "✗ OVER" if over_clothing      else ("⚠ WARN" if warn_clothing      else "✓ OK  ")
+status_other         = "✓ OK  "
 
-    Returns:
-        tuple: (is_valid bool, error_msg str)
-    """
-    # YOUR CODE HERE:
-    # Check against INCOME_CATEGORIES or EXPENSE_CATEGORIES
-    pass
+# Progress bars for each category
+bw = 15
+bar_housing       = "█" * int(min(usage_housing,100)/100*bw)       + "░" * (bw - int(min(usage_housing,100)/100*bw))
+bar_utilities     = "█" * int(min(usage_utilities,100)/100*bw)     + "░" * (bw - int(min(usage_utilities,100)/100*bw))
+bar_subs          = "█" * int(min(usage_subs,100)/100*bw)          + "░" * (bw - int(min(usage_subs,100)/100*bw))
+bar_food          = "█" * int(min(usage_food,100)/100*bw)          + "░" * (bw - int(min(usage_food,100)/100*bw))
+bar_transport     = "█" * int(min(usage_transport,100)/100*bw)     + "░" * (bw - int(min(usage_transport,100)/100*bw))
+bar_entertainment = "█" * int(min(usage_entertainment,100)/100*bw) + "░" * (bw - int(min(usage_entertainment,100)/100*bw))
+bar_healthcare    = "█" * int(min(usage_healthcare,100)/100*bw)    + "░" * (bw - int(min(usage_healthcare,100)/100*bw))
+bar_education     = "█" * int(min(usage_education,100)/100*bw)     + "░" * (bw - int(min(usage_education,100)/100*bw))
+bar_clothing      = "█" * int(min(usage_clothing,100)/100*bw)      + "░" * (bw - int(min(usage_clothing,100)/100*bw))
+bar_other         = "█" * int(min(usage_other,100)/100*bw)         + "░" * (bw - int(min(usage_other,100)/100*bw))
 
+print(f"\n  {'Category':<14} {'Spent':>9} {'Budget':>9} {'Bar':<17} {'Used':>7} {'Status'}")
+print(f"  {'─' * 70}")
+print(f"  {'Housing':<14} {total_housing:>9,.2f} {budget_housing:>9,.2f} [{bar_housing}] {usage_housing:>6.1f}% {status_housing}")
+print(f"  {'Utilities':<14} {total_utilities:>9,.2f} {budget_utilities:>9,.2f} [{bar_utilities}] {usage_utilities:>6.1f}% {status_utilities}")
+print(f"  {'Subscriptions':<14} {total_subscriptions:>9,.2f} {budget_subs:>9,.2f} [{bar_subs}] {usage_subs:>6.1f}% {status_subs}")
+print(f"  {'Food':<14} {total_food:>9,.2f} {budget_food:>9,.2f} [{bar_food}] {usage_food:>6.1f}% {status_food}")
+print(f"  {'Transport':<14} {total_transport:>9,.2f} {budget_transport:>9,.2f} [{bar_transport}] {usage_transport:>6.1f}% {status_transport}")
+print(f"  {'Entertainment':<14} {total_entertainment:>9,.2f} {budget_entertainment:>9,.2f} [{bar_entertainment}] {usage_entertainment:>6.1f}% {status_entertainment}")
+print(f"  {'Healthcare':<14} {total_healthcare:>9,.2f} {budget_healthcare:>9,.2f} [{bar_healthcare}] {usage_healthcare:>6.1f}% {status_healthcare}")
+print(f"  {'Education':<14} {total_education:>9,.2f} {budget_education:>9,.2f} [{bar_education}] {usage_education:>6.1f}% {status_education}")
+print(f"  {'Clothing':<14} {total_clothing:>9,.2f} {budget_clothing:>9,.2f} [{bar_clothing}] {usage_clothing:>6.1f}% {status_clothing}")
+print(f"  {'Other':<14} {total_other:>9,.2f} {budget_other:>9,.2f} [{bar_other}] {usage_other:>6.1f}% {status_other}")
+print(f"  {'─' * 70}")
 
-def validate_date(date_str):
-    """
-    Validate date string in YYYY-MM-DD format.
-
-    Args:
-        date_str (str): Date string to validate.
-
-    Returns:
-        tuple: (is_valid bool, error_msg str)
-    """
-    # YOUR CODE HERE:
-    # Check format: YYYY-MM-DD
-    # Check reasonable range: 2020-2030
-    # Hint: split by "-", check lengths and ranges
-    pass
-
-
-# ============================================================
-# SECTION 9: TESTS
-# ============================================================
-
-
-def run_all_tests():
-    """Run automated tests for all functions."""
-    print_section("RUNNING AUTOMATED TESTS")
-
-    tests_passed = 0
-    tests_failed = 0
-
-    def test(description, actual, expected):
-        nonlocal tests_passed, tests_failed
-        # YOUR CODE HERE:
-        # Same as Project 1 test function
-        pass
-
-    # Test format_currency():
-    test("Format 1234.56",    format_currency(1234.56),    "1,234.56 zł")
-    test("Format 0",          format_currency(0),          "0.00 zł")
-    test("Format negative",   format_currency(-50.0),      "-50.00 zł")
-
-    # Test format_percent():
-    test("50% ratio",         format_percent(0.5),         "50.0%")
-    test("100% ratio",        format_percent(1.0),         "100.0%")
-    test("0% ratio",          format_percent(0.0),         "0.0%")
-
-    # Test calculate_savings():
-    test("Savings 200",       calculate_savings(1000, 800),  200.0)
-    test("Savings negative",  calculate_savings(500, 800),  -300.0)
-
-    # Test calculate_savings_rate():
-    test("Savings rate 20%",  calculate_savings_rate(1000, 800), 20.0)
-    test("Savings rate 0%",   calculate_savings_rate(1000, 1000), 0.0)
-
-    # Test calculate_tax():
-    tax, net = calculate_tax(10000)
-    test("Tax 1900",          tax,  1900.0)
-    test("Net 8100",          net,  8100.0)
-
-    # Test validate_amount():
-    valid, amt, _  = validate_amount("100.00")
-    test("Valid amount",      valid, True)
-    test("Amount 100",        amt,   100.0)
-
-    valid, _, _    = validate_amount("-50")
-    test("Negative invalid",  valid, False)
-
-    valid, _, _    = validate_amount("abc")
-    test("String invalid",    valid, False)
-
-    # Test get_total():
-    parsed = get_all_transactions()
-    income = filter_by_type(parsed, TYPE_INCOME)
-    total  = get_total(income)
-    test("Income > 0",        total > 0, True)
-
-    # Test calculate_statistics():
-    stats = calculate_statis12*tics([10, 20, 30, 40, 50])
-    test("Count 5",           stats["count"],  5)
-    test("Total 150",         stats["total"],  150.0)
-    test("Mean 30",           stats["mean"],   30.0)
-    test("Min 10",            stats["min"],    10.0)
-    test("Max 50",            stats["max"],    50.0)
-    test("Median 30",         stats["median"], 30.0)
-
-    # Print summary:
-    total_tests = tests_passed + tests_failed
-    print(f"\n  Results: {tests_passed}/{total_tests} tests passed")
-    if tests_failed == 0:
-        print("  ✓ All tests passed!")
-    else:
-        print(f"  ✗ {tests_failed} test(s) failed")
+total_budget = (budget_housing + budget_utilities + budget_subs +
+                budget_food + budget_transport + budget_entertainment +
+                budget_healthcare + budget_education + budget_clothing +
+                budget_other)
+total_usage  = total_expenses / total_budget * 100
+print(f"  {'TOTAL':<14} {total_expenses:>9,.2f} {total_budget:>9,.2f} {'':17} {total_usage:>6.1f}%")
 
 
 # ============================================================
-# MAIN PROGRAM
+# SECTION 5: STATISTICAL ANALYSIS
+# ============================================================
+# Tests: math operators, numbers, comparisons, f-strings
+
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 5: STATISTICAL ANALYSIS")
+print(f"{'─' * WIDTH}")
+
+# Expense category amounts (for statistics)
+# Manually list all category totals
+cat_min = total_subscriptions   # smallest category
+cat_max = total_housing          # largest category
+
+# Sum of all categories (= total_expenses, verification)
+cat_sum_check = (
+    total_housing + total_utilities + total_subscriptions +
+    total_food + total_transport + total_entertainment +
+    total_healthcare + total_education + total_clothing +
+    total_other
+)
+cat_count     = 10
+cat_mean      = total_expenses / cat_count
+
+# Median: sort manually (we know the order)
+# Sorted ascending: subscriptions, utilities, other, education,
+#                   transport, entertainment, healthcare, food,
+#                   clothing, housing
+# subscriptions=72.99, utilities=139.98, other=225.50, education=258.99
+# transport=370.50, entertainment=379.98, healthcare=316.50
+# food=1289.30, clothing=698.00, housing=2200.00
+# Sorted: 72.99, 139.98, 225.50, 258.99, 316.50, 370.50, 379.98, 698.00, 1289.30, 2200.00
+# Median of 10 = average of 5th and 6th = (316.50 + 370.50) / 2
+median_5th = total_healthcare   # 316.50
+median_6th = total_transport    # 370.50
+cat_median = (median_5th + median_6th) / 2
+
+# Range
+cat_range = cat_max - cat_min
+
+# Largest and smallest single transactions
+# Largest: Rent (2200.00)
+# Smallest: Spotify (23.99)
+largest_amount  = exp_housing_1_amount
+largest_desc    = exp_housing_1_desc
+smallest_amount = exp_sub_2_amount
+smallest_desc   = exp_sub_2_desc
+
+# Count over-budget categories
+over_budget_count = int(over_housing) + int(over_food) + int(over_clothing)
+warn_count        = int(warn_transport) + int(warn_entertainment)
+ok_count          = cat_count - over_budget_count - warn_count
+
+# Income distribution
+salary_pct     = total_salary     / total_income * 100
+freelance_pct  = total_freelance  / total_income * 100
+investment_pct = total_investment / total_income * 100
+gift_pct       = total_gift       / total_income * 100
+
+print(f"\n  EXPENSE CATEGORY STATISTICS:")
+print(f"  {'─' * 42}")
+print(f"  Count        : {cat_count} categories")
+print(f"  Total        : {total_expenses:>10,.2f} {CURRENCY}")
+print(f"  Mean         : {cat_mean:>10,.2f} {CURRENCY}")
+print(f"  Median       : {cat_median:>10,.2f} {CURRENCY}")
+print(f"  Minimum      : {cat_min:>10,.2f} {CURRENCY}  ({total_subscriptions:.2f} - subscriptions)")
+print(f"  Maximum      : {cat_max:>10,.2f} {CURRENCY}  ({total_housing:.2f} - housing)")
+print(f"  Range        : {cat_range:>10,.2f} {CURRENCY}")
+print(f"  Verification : {cat_sum_check:>10,.2f} {CURRENCY}  (matches total: {cat_sum_check == total_expenses})")
+
+print(f"\n  SINGLE TRANSACTION EXTREMES:")
+print(f"  Largest  : {largest_desc:<28} {largest_amount:>10,.2f} {CURRENCY}")
+print(f"  Smallest : {smallest_desc:<28} {smallest_amount:>10,.2f} {CURRENCY}")
+print(f"  Ratio    : {largest_amount/smallest_amount:.1f}x difference")
+
+print(f"\n  INCOME DISTRIBUTION:")
+print(f"  {'─' * 42}")
+bar_sal  = "█" * int(salary_pct/100*20)     + "░" * (20 - int(salary_pct/100*20))
+bar_free = "█" * int(freelance_pct/100*20)  + "░" * (20 - int(freelance_pct/100*20))
+bar_inv  = "█" * int(investment_pct/100*20) + "░" * (20 - int(investment_pct/100*20))
+bar_gift = "█" * int(gift_pct/100*20)       + "░" * (20 - int(gift_pct/100*20))
+print(f"  salary     [{bar_sal}] {salary_pct:5.1f}%  {total_salary:>9,.2f} {CURRENCY}")
+print(f"  freelance  [{bar_free}] {freelance_pct:5.1f}%  {total_freelance:>9,.2f} {CURRENCY}")
+print(f"  investment [{bar_inv}] {investment_pct:5.1f}%  {total_investment:>9,.2f} {CURRENCY}")
+print(f"  gift       [{bar_gift}] {gift_pct:5.1f}%  {total_gift:>9,.2f} {CURRENCY}")
+
+
+# ============================================================
+# SECTION 6: FINANCIAL HEALTH REPORT
+# ============================================================
+# Tests: booleans, logical operators, comparisons, f-strings
+
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 6: FINANCIAL HEALTH REPORT")
+print(f"{'─' * WIDTH}")
+
+# Health checks
+is_saving_money    = net_savings > 0
+is_good_savings    = savings_rate >= 20.0
+is_tax_efficient   = net_income > total_expenses
+housing_affordable = total_housing / total_income <= 0.30  # 30% rule
+has_food_issue     = over_food
+has_clothing_issue = over_clothing
+total_budget_ok    = total_usage <= 100.0
+
+# Health score (out of 10 points)
+score = (
+    int(is_saving_money)    * 2 +  # 2 points for saving anything
+    int(is_good_savings)    * 2 +  # 2 points for 20%+ savings rate
+    int(housing_affordable) * 2 +  # 2 points for housing < 30% income
+    int(total_budget_ok)    * 2 +  # 2 points for total under budget
+    int(not has_food_issue) * 1 +  # 1 point for food on budget
+    int(not has_clothing_issue) * 1  # 1 point for clothing on budget
+)
+
+# Score bar
+score_bar  = "★" * score + "☆" * (10 - score)
+score_text = (
+    "Excellent!" if score >= 9 else
+    "Good"       if score >= 7 else
+    "Fair"       if score >= 5 else
+    "Needs work" if score >= 3 else
+    "Critical"
+)
+
+# Overspending details
+food_over_amount     = total_food     - budget_food     if over_food     else 0
+clothing_over_amount = total_clothing - budget_clothing if over_clothing else 0
+total_over           = food_over_amount + clothing_over_amount
+
+# How many months to reach emergency fund (3 months expenses)?
+emergency_fund_target = total_expenses * 3
+months_to_emergency   = (
+    emergency_fund_target / net_savings if net_savings > 0 else 999
+)
+
+print(f"""
+  ┌─────────────────────────────────────────────────────┐
+  │              FINANCIAL HEALTH SCORECARD             │
+  ├─────────────────────────────────────────────────────┤
+  │  Score: {score}/10  {score_bar}  {score_text:<12}     │
+  ├─────────────────────────────────────────────────────┤
+  │  CHECKS                                             │
+  │  Saving money         : {'✓ YES' if is_saving_money    else '✗ NO '} ({net_savings:>+10,.2f} {CURRENCY})  │
+  │  Good savings rate    : {'✓ YES' if is_good_savings    else '✗ NO '} ({savings_rate:>8.1f}%)     │
+  │  Tax efficient        : {'✓ YES' if is_tax_efficient   else '✗ NO '}                        │
+  │  Housing affordable   : {'✓ YES' if housing_affordable else '✗ NO '} ({total_housing/total_income*100:.0f}% of income) │
+  │  Total under budget   : {'✓ YES' if total_budget_ok    else '✗ NO '} ({total_usage:.1f}% of budget) │
+  │  Food on budget       : {'✓ YES' if not has_food_issue else '✗ NO '} ({usage_food:.1f}% used)    │
+  │  Clothing on budget   : {'✓ YES' if not has_clothing_issue else '✗ NO '} ({usage_clothing:.1f}% used)  │
+  ├─────────────────────────────────────────────────────┤
+  │  ISSUES                                             │
+  │  Over-budget categories : {over_budget_count}                           │
+  │  Warning categories     : {warn_count}                           │
+  │  OK categories          : {ok_count}                           │
+  │  Total overspending     : {total_over:>10,.2f} {CURRENCY}             │
+  ├─────────────────────────────────────────────────────┤
+  │  GOALS                                              │
+  │  Emergency fund target  : {emergency_fund_target:>10,.2f} {CURRENCY}             │
+  │  Months to reach it     : {months_to_emergency:>10.1f} months             │
+  │  Annual savings goal    : {annual_savings:>10,.2f} {CURRENCY}             │
+  └─────────────────────────────────────────────────────┘
+""")
+
+
+# ============================================================
+# SECTION 7: RECOMMENDATIONS
+# ============================================================
+# Tests: booleans, logical operators, f-strings, strings
+
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 7: RECOMMENDATIONS")
+print(f"{'─' * WIDTH}")
+
+# Build recommendation strings using bool expressions
+rec_food = (
+    f"  ⚠  FOOD: Over budget by {food_over_amount:,.2f} {CURRENCY}. "
+    f"Target: reduce by {food_over_amount/7:.2f} {CURRENCY}/week."
+    if has_food_issue else
+    f"  ✓  FOOD: Within budget. {rem_food:,.2f} {CURRENCY} remaining."
+)
+
+rec_clothing = (
+    f"  ⚠  CLOTHING: Over budget by {clothing_over_amount:,.2f} {CURRENCY}. "
+    f"Avoid clothing purchases next month."
+    if has_clothing_issue else
+    f"  ✓  CLOTHING: Within budget. {rem_clothing:,.2f} {CURRENCY} remaining."
+)
+
+rec_savings = (
+    f"  ✓  SAVINGS: Good rate of {savings_rate:.1f}%. Keep it up!"
+    if is_good_savings else
+    f"  ⚠  SAVINGS: Rate of {savings_rate:.1f}% is below 20% target. "
+    f"Need {total_income * 0.20 - net_savings:,.2f} {CURRENCY} more monthly."
+)
+
+rec_emergency = (
+    f"  ✓  EMERGENCY FUND: On track - {months_to_emergency:.0f} months to target."
+    if months_to_emergency <= 6 else
+    f"  ⚠  EMERGENCY FUND: {months_to_emergency:.1f} months to reach target. "
+    f"Consider increasing savings."
+)
+
+rec_housing = (
+    f"  ✓  HOUSING: Cost is {total_housing/total_income*100:.0f}% of income (under 30% rule)."
+    if housing_affordable else
+    f"  ⚠  HOUSING: Cost is {total_housing/total_income*100:.0f}% of income (over 30% rule)."
+)
+
+rec_overall = (
+    f"  ✓  OVERALL: Excellent financial health! Score {score}/10."
+    if score >= 8 else
+    f"  ⚠  OVERALL: Good but room for improvement. Score {score}/10."
+    if score >= 6 else
+    f"  ✗  OVERALL: Significant improvements needed. Score {score}/10."
+)
+
+print()
+print(rec_food)
+print(rec_clothing)
+print(rec_savings)
+print(rec_emergency)
+print(rec_housing)
+print()
+print(f"  {'─' * 55}")
+print(rec_overall)
+
+# Potential savings if food and clothing were on budget
+potential_monthly = food_over_amount + clothing_over_amount
+potential_annual  = potential_monthly * 12
+print(f"\n  💡 If food and clothing were on budget:")
+print(f"     Monthly savings would increase by {potential_monthly:,.2f} {CURRENCY}")
+print(f"     Annual savings would increase by  {potential_annual:,.2f} {CURRENCY}")
+
+
+# ============================================================
+# FINAL SUMMARY
 # ============================================================
 
-
-def main():
-    """Main program entry point."""
-    # Parse all transactions:
-    transactions = get_all_transactions()
-
-    # Run tests first:
-    run_all_tests()
-
-    # Generate complete report:
-    generate_full_report(transactions)
-
-
-if __name__ == "__main__":
-    main()
+print(f"\n{'╔' + '═' * (WIDTH - 2) + '╗'}")
+print(f"║ {'FINAL SUMMARY - ' + PERIOD:^{WIDTH - 4}} ║")
+print(f"{'╠' + '═' * (WIDTH - 2) + '╣'}")
+print(f"║  {'Total Income':<28} {total_income:>14,.2f} {CURRENCY}  ║")
+print(f"║  {'Total Expenses':<28} {total_expenses:>14,.2f} {CURRENCY}  ║")
+print(f"║  {'Net Savings':<28} {net_savings:>14,.2f} {CURRENCY}  ║")
+print(f"║  {'Savings Rate':<28} {savings_rate:>14.1f}%      ║")
+print(f"║  {'Tax Paid':<28} {tax_amount:>14,.2f} {CURRENCY}  ║")
+print(f"║  {'Over-budget Categories':<28} {over_budget_count:>14}       ║")
+print(f"║  {'Financial Health Score':<28} {score:>14}/10       ║")
+print(f"{'╚' + '═' * (WIDTH - 2) + '╝'}")
+print(f"\n  Computed using ONLY Module 01 Python concepts.")
+print(f"  No functions, no if/else, no loops, no imports.\n")
 
 # ============================================================
 # END OF PROJECT 02

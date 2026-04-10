@@ -18,9 +18,9 @@
 # Think of it as a labeled box:
 #
 #   name = "John"
-#   ┌─────────┐
-#   │  "John" │  ← box label: name
-#   └─────────┘
+#   ┌──────────┐
+#   │  "John"  │  ← box label: name
+#   └──────────┘
 
 # Creating a variable - syntax:
 # variable_name = value

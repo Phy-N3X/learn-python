@@ -2,827 +2,675 @@
 # MODULE 01 | PROJECT 01 - DNA Analysis Suite
 # ============================================================
 # Difficulty  : ⭐⭐⭐⭐ (Hard)
-# Covers      : ALL topics from Module 01
+# Covers      : ONLY Module 01 topics:
 #               Variables, Numbers, Strings, Booleans,
-#               Print, Input, Comments, Math, Comparisons,
-#               Logical operators, Type conversion, F-strings
+#               Print, Input, Comments, Math Operators,
+#               Comparison Operators, Logical Operators,
+#               Type Conversion, F-Strings
+# NO: functions, if/else, loops, imports, lists, dicts
 # Estimated   : 3-5 hours
 # ============================================================
 #
-# OVERVIEW:
-# You will build a complete DNA Analysis Suite - a command-line
-# tool that analyzes DNA sequences. It uses REAL concepts from
-# bioinformatics and covers EVERY topic from Module 01.
-#
-# The program has 10 analysis modules, each testing different
-# Python skills you learned in this module.
+# HOW THIS PROJECT WORKS:
+# Each section is self-contained.
+# You define variables, perform operations, and print results.
+# NO functions, NO if statements, NO loops, NO imports.
+# Everything is done with the 12 topics from Module 01.
 # ============================================================
 
 
-import math
-import datetime
+# ============================================================
+# PROGRAM HEADER
+# ============================================================
+# Tests: variables, strings, f-strings, print()
+
+PROGRAM_NAME = "DNA Analysis Suite"
+VERSION      = "1.0.0"
+AUTHOR       = "Your Name"
+DATE         = "2025-01-15"
+WIDTH        = 62
+
+print(f"{'═' * WIDTH}")
+print(f"║ {PROGRAM_NAME:^{WIDTH - 4}} ║")
+print(f"║ {'Version ' + VERSION:^{WIDTH - 4}} ║")
+print(f"║ {('Author: ' + AUTHOR):^{WIDTH - 4}} ║")
+print(f"║ {('Date: ' + DATE):^{WIDTH - 4}} ║")
+print(f"{'═' * WIDTH}")
 
 
 # ============================================================
-# SECTION 1: CONFIGURATION AND CONSTANTS
+# SECTION 1: SEQUENCE DEFINITION AND BASIC INFO
 # ============================================================
-# Tests: variables, type conversion, comments, f-strings
+# Tests: variables, strings, type conversion, f-strings
 
-# --- Program metadata ---
-PROGRAM_NAME    = "DNA Analysis Suite"
-VERSION         = "1.0.0"
-AUTHOR          = "Your Name"
-RELEASE_DATE    = "2025-01-15"
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 1: SEQUENCE DEFINITION")
+print(f"{'─' * WIDTH}")
 
-# --- Valid nucleotides ---
-VALID_DNA_CHARS = {"A", "T", "G", "C"}
-VALID_RNA_CHARS = {"A", "U", "G", "C"}
+# Real fragment of the TP53 tumor suppressor gene (human)
+# TP53 is called "Guardian of the Genome"
+# Mutations in TP53 are found in ~50% of all human cancers
+sequence_raw  = "  atgTTCAAgacagattttcaaCTCTGTCTCCTTCCTCTTCCTACAGTACTCCC  "
+sequence_name = "TP53 tumor suppressor gene fragment"
+organism      = "Homo sapiens"
+chromosome    = "17"
+gene_id       = "TP53"
 
-# --- Codon tables ---
-# Start codon: ATG (Methionine)
-START_CODON = "ATG"
+# Step 1: Clean the sequence - strip whitespace, convert to uppercase
+# This simulates real bioinformatics data cleaning
+sequence_clean = sequence_raw.strip().upper().replace(" ", "")
 
-# Stop codons: TAA, TAG, TGA
-STOP_CODONS = {"TAA", "TAG", "TGA"}
+# Step 2: Basic information
+sequence_length = len(sequence_clean)
+first_10        = sequence_clean[:10]
+last_10         = sequence_clean[-10:]
+middle_start    = sequence_length // 2 - 5
+middle_10       = sequence_clean[middle_start:middle_start + 10]
 
-# --- GC content classification thresholds ---
-GC_LOW_THRESHOLD  = 40.0   # below this = low GC
-GC_HIGH_THRESHOLD = 60.0   # above this = high GC
+# Step 3: Display
+print(f"\n  Gene         : {gene_id}")
+print(f"  Organism     : {organism}")
+print(f"  Chromosome   : {chromosome}")
+print(f"  Raw input    : {repr(sequence_raw)}")
+print(f"  Cleaned      : {sequence_clean}")
+print(f"  Length       : {sequence_length} nucleotides")
+print(f"  First 10 nt  : {first_10}")
+print(f"  Last 10 nt   : {last_10}")
+print(f"  Middle 10 nt : {middle_10}")
 
-# --- Melting temperature constants (Wallace rule) ---
-# Tm = 2*(A+T) + 4*(G+C) for short sequences
-TEMP_AT = 2    # degrees per A or T
-TEMP_GC = 4    # degrees per G or C
+# Step 4: Type verification
+print(f"\n  Type of sequence : {type(sequence_clean)}")
+print(f"  Type of length   : {type(sequence_length)}")
 
-
-# ============================================================
-# SECTION 2: DISPLAY UTILITIES
-# ============================================================
-# Tests: f-strings, print(), string formatting
-
-
-def print_header():
-    """
-    Print the program header banner.
-
-    Uses f-strings with alignment and unicode box characters.
-    """
-    width = 62
-    print(f"\n{'═' * width}")
-    print(f"║ {PROGRAM_NAME:^{width - 4}} ║")
-    print(f"║ {'Version ' + VERSION:^{width - 4}} ║")
-    print(f"║ {('Author: ' + AUTHOR):^{width - 4}} ║")
-    print(f"{'═' * width}\n")
-
-
-def print_section(title):
-    """
-    Print a section separator with title.
-
-    Args:
-        title (str): Section title to display.
-    """
-    width = 62
-    print(f"\n{'─' * width}")
-    print(f"  {title}")
-    print(f"{'─' * width}")
-
-
-def print_result(label, value, width=30):
-    """
-    Print a labeled result with consistent formatting.
-
-    Args:
-        label (str): Description of the result.
-        value      : The result value (any type).
-        width (int): Label column width.
-    """
-    print(f"  {label:<{width}}: {value}")
-
-
-def make_bar(value, maximum, width=30, fill="█", empty="░"):
-    """
-    Create a progress bar string.
-
-    Args:
-        value   (float): Current value.
-        maximum (float): Maximum value.
-        width   (int)  : Bar width in characters.
-        fill    (str)  : Character for filled portion.
-        empty   (str)  : Character for empty portion.
-
-    Returns:
-        str: Formatted progress bar string.
-    """
-    # TODO: handle edge case where maximum is 0
-    ratio       = value / maximum if maximum != 0 else 0
-    filled      = int(ratio * width)
-    empty_count = width - filled
-    bar         = fill * filled + empty * empty_count
-    percent     = ratio * 100
-    return f"[{bar}] {percent:5.1f}%"
+# Step 5: Sequence preview (first 30 chars + ...)
+preview = sequence_clean[:30] + "..." + f" ({sequence_length} nt total)"
+print(f"  Preview          : {preview}")
 
 
 # ============================================================
-# SECTION 3: SEQUENCE VALIDATION
+# SECTION 2: SEQUENCE VALIDATION
 # ============================================================
-# Tests: strings, booleans, logical operators, membership
+# Tests: strings, booleans, logical operators, comparison, membership
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 2: SEQUENCE VALIDATION")
+print(f"{'─' * WIDTH}")
 
-def is_valid_dna(sequence):
-    """
-    Check if sequence is a valid DNA sequence.
+# Check 1: Is the sequence non-empty?
+is_not_empty = len(sequence_clean) > 0
 
-    A valid DNA sequence:
-    - Is not empty
-    - Contains only A, T, G, C characters
-    - Is uppercase
+# Check 2: Is it all uppercase?
+is_uppercase = sequence_clean == sequence_clean.upper()
 
-    Args:
-        sequence (str): Sequence to validate.
+# Check 3: Does it contain ONLY valid nucleotides (A, T, G, C)?
+# Count all valid chars and compare to total length
+valid_char_count = (
+    sequence_clean.count("A") +
+    sequence_clean.count("T") +
+    sequence_clean.count("G") +
+    sequence_clean.count("C")
+)
+is_only_valid_chars = valid_char_count == sequence_length
 
-    Returns:
-        bool: True if valid DNA, False otherwise.
-    """
-    # YOUR CODE HERE:
-    # 1. Check not empty
-    # 2. Check all uppercase
-    # 3. Check only valid chars using all() and membership
-    pass
+# Check 4: Does it start with ATG (start codon)?
+has_start_codon = sequence_clean[:3] == "ATG"
 
+# Check 5: Does it end with a stop codon (TAA, TAG, or TGA)?
+last_codon      = sequence_clean[-3:]
+has_stop_codon  = last_codon == "TAA" or last_codon == "TAG" or last_codon == "TGA"
 
-def is_valid_rna(sequence):
-    """
-    Check if sequence is valid RNA (A, U, G, C only).
+# Check 6: Is length divisible by 3 (complete codons)?
+has_complete_codons = sequence_length % 3 == 0
 
-    Args:
-        sequence (str): Sequence to validate.
+# Check 7: Is it a complete gene (has start AND stop AND valid)?
+is_complete_gene = (
+    is_not_empty and
+    is_uppercase and
+    is_only_valid_chars and
+    has_start_codon and
+    has_stop_codon and
+    has_complete_codons
+)
 
-    Returns:
-        bool: True if valid RNA, False otherwise.
-    """
-    # YOUR CODE HERE:
-    pass
+# Display validation results using ternary in f-string
+print(f"\n  Validation Results:")
+print(f"  {'─' * 40}")
+print(f"  Not empty          : {'✓' if is_not_empty else '✗'}  {is_not_empty}")
+print(f"  Uppercase          : {'✓' if is_uppercase else '✗'}  {is_uppercase}")
+print(f"  Valid chars only   : {'✓' if is_only_valid_chars else '✗'}  {is_only_valid_chars}")
+print(f"  Has start (ATG)    : {'✓' if has_start_codon else '✗'}  {has_start_codon}")
+print(f"  Has stop codon     : {'✓' if has_stop_codon else '✗'}  {has_stop_codon}")
+print(f"  Complete codons    : {'✓' if has_complete_codons else '✗'}  {has_complete_codons}")
+print(f"  {'─' * 40}")
+print(f"  Complete gene      : {'✓' if is_complete_gene else '✗'}  {is_complete_gene}")
 
-
-def has_start_codon(sequence):
-    """
-    Check if sequence begins with ATG (start codon).
-
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        bool: True if starts with ATG.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def has_stop_codon(sequence):
-    """
-    Check if sequence ends with a stop codon (TAA, TAG, TGA).
-
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        bool: True if ends with valid stop codon.
-    """
-    # YOUR CODE HERE:
-    # Hint: check last 3 characters against STOP_CODONS set
-    pass
-
-
-def validate_sequence(sequence):
-    """
-    Run all validation checks and return results dict.
-
-    Args:
-        sequence (str): DNA sequence to validate.
-
-    Returns:
-        dict: Validation results for each check.
-    """
-    # YOUR CODE HERE:
-    # Return dict with keys:
-    # not_empty, is_uppercase, valid_chars,
-    # has_start, has_stop, is_complete_gene
-    pass
+# Invalid characters check
+invalid_count = sequence_length - valid_char_count
+print(f"\n  Valid nucleotides  : {valid_char_count}")
+print(f"  Invalid characters : {invalid_count}")
+print(f"  Sequence is valid  : {is_only_valid_chars and is_not_empty and is_uppercase}")
 
 
 # ============================================================
-# SECTION 4: BASIC SEQUENCE ANALYSIS
+# SECTION 3: NUCLEOTIDE COMPOSITION
 # ============================================================
-# Tests: strings methods, math operators, f-strings
+# Tests: strings (.count()), math operators, f-strings, numbers
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 3: NUCLEOTIDE COMPOSITION")
+print(f"{'─' * WIDTH}")
 
-def count_nucleotides(sequence):
-    """
-    Count occurrences of each nucleotide.
+# Count each nucleotide
+count_a = sequence_clean.count("A")
+count_t = sequence_clean.count("T")
+count_g = sequence_clean.count("G")
+count_c = sequence_clean.count("C")
+count_total = count_a + count_t + count_g + count_c
 
-    Args:
-        sequence (str): DNA sequence.
+# Calculate percentages
+percent_a = count_a / sequence_length * 100
+percent_t = count_t / sequence_length * 100
+percent_g = count_g / sequence_length * 100
+percent_c = count_c / sequence_length * 100
 
-    Returns:
-        dict: Count of A, T, G, C.
-    """
-    # YOUR CODE HERE:
-    pass
+# Calculate GC and AT content
+gc_count   = count_g + count_c
+at_count   = count_a + count_t
+gc_percent = gc_count / sequence_length * 100
+at_percent = at_count / sequence_length * 100
 
+# Verify: all percentages sum to 100
+total_percent = percent_a + percent_t + percent_g + percent_c
 
-def calculate_gc_content(sequence):
-    """
-    Calculate GC content percentage.
+# Display counts table
+print(f"\n  Nucleotide Counts:")
+print(f"  {'─' * 50}")
+print(f"  {'Nucleotide':<12} {'Count':>6} {'Percent':>8}  {'Bar':<20}")
+print(f"  {'─' * 50}")
 
-    Args:
-        sequence (str): DNA sequence.
+# Build bars manually (using string multiplication)
+bar_width  = 20
+bar_a = "█" * int(percent_a / 100 * bar_width) + "░" * (bar_width - int(percent_a / 100 * bar_width))
+bar_t = "█" * int(percent_t / 100 * bar_width) + "░" * (bar_width - int(percent_t / 100 * bar_width))
+bar_g = "█" * int(percent_g / 100 * bar_width) + "░" * (bar_width - int(percent_g / 100 * bar_width))
+bar_c = "█" * int(percent_c / 100 * bar_width) + "░" * (bar_width - int(percent_c / 100 * bar_width))
 
-    Returns:
-        float: GC content as percentage (0.0 to 100.0).
-               Returns 0.0 for empty sequence.
-    """
-    # YOUR CODE HERE:
-    # GC% = (G + C) / total * 100
-    pass
+print(f"  {'Adenine  (A)':<12} {count_a:>6} {percent_a:>7.1f}%  {bar_a}")
+print(f"  {'Thymine  (T)':<12} {count_t:>6} {percent_t:>7.1f}%  {bar_t}")
+print(f"  {'Guanine  (G)':<12} {count_g:>6} {percent_g:>7.1f}%  {bar_g}")
+print(f"  {'Cytosine (C)':<12} {count_c:>6} {percent_c:>7.1f}%  {bar_c}")
+print(f"  {'─' * 50}")
+print(f"  {'TOTAL':<12} {count_total:>6} {total_percent:>7.1f}%")
 
+# GC / AT summary
+print(f"\n  GC Content  : {gc_count:>4} nucleotides = {gc_percent:.2f}%")
+print(f"  AT Content  : {at_count:>4} nucleotides = {at_percent:.2f}%")
+print(f"  GC + AT     : {gc_percent + at_percent:.1f}% (should be 100.0%)")
 
-def calculate_at_content(sequence):
-    """
-    Calculate AT content percentage.
+# GC classification (using bool expressions and ternary)
+is_low_gc    = gc_percent < 40.0
+is_normal_gc = 40.0 <= gc_percent <= 60.0
+is_high_gc   = gc_percent > 60.0
 
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        float: AT content as percentage.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def calculate_melting_temp(sequence):
-    """
-    Calculate approximate melting temperature using Wallace rule.
-
-    Formula: Tm = 2*(A+T) + 4*(G+C)
-    Valid for sequences shorter than 14 nucleotides.
-
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        float: Estimated melting temperature in Celsius.
-    """
-    # YOUR CODE HERE:
-    # Use TEMP_AT and TEMP_GC constants
-    pass
-
-
-def classify_gc(gc_percent):
-    """
-    Classify GC content level.
-
-    Args:
-        gc_percent (float): GC content percentage.
-
-    Returns:
-        str: "Low GC", "Normal GC", or "High GC"
-    """
-    # YOUR CODE HERE:
-    # Use GC_LOW_THRESHOLD and GC_HIGH_THRESHOLD constants
-    pass
+gc_class = ("Low GC" if is_low_gc else ("Normal GC" if is_normal_gc else "High GC"))
+print(f"  GC Class    : {gc_class}")
 
 
 # ============================================================
-# SECTION 5: SEQUENCE MANIPULATION
+# SECTION 4: MELTING TEMPERATURE
 # ============================================================
-# Tests: string slicing, methods, type conversion
+# Tests: math operators, numbers, f-strings
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 4: MELTING TEMPERATURE")
+print(f"{'─' * WIDTH}")
 
-def get_complement(sequence):
-    """
-    Get the complementary DNA strand.
+# Wallace Rule: Tm = 2*(A+T) + 4*(G+C)
+# Valid for short sequences (< 14 nt)
+# For longer sequences we use a modified formula
 
-    Complementary rules: A↔T, G↔C
-    Uses temporary lowercase to avoid double-replacement.
+# Simple Wallace rule
+tm_wallace = 2 * at_count + 4 * gc_count
 
-    Args:
-        sequence (str): DNA sequence.
+# Modified formula for longer sequences (empirical)
+# Tm = 81.5 + 16.6 * log10(Na+) + 0.41 * GC% - 675/length
+# Assuming Na+ = 0.05M (typical PCR condition)
+# log10(0.05) = -1.301
+sodium_correction = 16.6 * (-1.301)
+tm_modified = 81.5 + sodium_correction + 0.41 * gc_percent - 675 / sequence_length
 
-    Returns:
-        str: Complementary sequence (same direction).
-    """
-    # YOUR CODE HERE:
-    # Step 1: A → t (lowercase temp)
-    # Step 2: T → a (lowercase temp)
-    # Step 3: G → c (lowercase temp)
-    # Step 4: C → g (lowercase temp)
-    # Step 5: .upper() to finalize
-    pass
+# Display
+print(f"\n  Melting Temperature Calculations:")
+print(f"  {'─' * 40}")
+print(f"  Wallace Rule   : {tm_wallace}°C")
+print(f"    Formula: 2*(A+T) + 4*(G+C)")
+print(f"    = 2*{at_count} + 4*{gc_count}")
+print(f"    = {2*at_count} + {4*gc_count}")
+print(f"    = {tm_wallace}°C")
+print(f"\n  Modified Formula: {tm_modified:.1f}°C")
+print(f"    (corrected for length and Na+ concentration)")
+print(f"    Assumes [Na+] = 0.05M")
 
-
-def get_reverse_complement(sequence):
-    """
-    Get the reverse complement of a DNA sequence.
-
-    This is used constantly in bioinformatics.
-    Represents the antiparallel complementary strand.
-
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        str: Reverse complement sequence.
-    """
-    # YOUR CODE HERE:
-    # Hint: get_complement() then reverse with [::-1]
-    pass
-
-
-def transcribe_to_rna(sequence):
-    """
-    Transcribe DNA to RNA (T → U).
-
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        str: RNA sequence.
-    """
-    # YOUR CODE HERE:
-    pass
-
-
-def extract_codons(sequence):
-    """
-    Extract all codons from sequence (groups of 3).
-
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        list: List of codon strings.
-    """
-    # YOUR CODE HERE:
-    # Use slicing: sequence[i:i+3] for i in range(0, len, 3)
-    # Only include complete codons (length == 3)
-    pass
-
-
-def get_reading_frames(sequence):
-    """
-    Get all three reading frames of a sequence.
-
-    Reading frames start at positions 0, 1, 2.
-
-    Args:
-        sequence (str): DNA sequence.
-
-    Returns:
-        dict: {"frame1": [...], "frame2": [...], "frame3": [...]}
-    """
-    # YOUR CODE HERE:
-    # Frame 1: sequence[0:]
-    # Frame 2: sequence[1:]
-    # Frame 3: sequence[2:]
-    # Extract codons from each
-    pass
+# Is this in typical PCR range?
+in_pcr_range = 50.0 <= tm_modified <= 65.0
+print(f"\n  In PCR range (50-65°C): {in_pcr_range}")
 
 
 # ============================================================
-# SECTION 6: SEQUENCE SEARCH
+# SECTION 5: SEQUENCE MANIPULATIONS
 # ============================================================
-# Tests: string methods, comparisons, logical operators
+# Tests: strings (.replace(), slicing, [::-1]), f-strings
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 5: SEQUENCE MANIPULATIONS")
+print(f"{'─' * WIDTH}")
 
-def find_motif(sequence, motif):
-    """
-    Find all positions where motif occurs in sequence.
+# 1. Complementary strand (A↔T, G↔C)
+# Use lowercase temporarily to avoid double-replacement
+complement = (
+    sequence_clean
+    .replace("A", "t")
+    .replace("T", "a")
+    .replace("G", "c")
+    .replace("C", "g")
+    .upper()
+)
 
-    Args:
-        sequence (str): DNA sequence to search.
-        motif    (str): Pattern to find.
+# 2. Reverse complement (antiparallel strand)
+reverse_complement = complement[::-1]
 
-    Returns:
-        list: List of start positions (0-indexed).
-    """
-    # YOUR CODE HERE:
-    # Use str.find() in a loop, or manual comparison
-    # Return list of all positions where motif found
-    positions = []
-    start     = 0
-    while True:
-        pos = sequence.find(motif, start)
-        if pos == -1:
-            break
-        positions.append(pos)
-        start = pos + 1
-    return positions
+# 3. RNA transcript (T → U)
+rna_transcript = sequence_clean.replace("T", "U")
 
+# 4. Reverse sequence
+reversed_sequence = sequence_clean[::-1]
 
-def count_motif(sequence, motif):
-    """
-    Count non-overlapping occurrences of motif.
+# Display (show first 40 chars if long)
+display_len = 40
+seq_display  = sequence_clean[:display_len]  + ("..." if sequence_length > display_len else "")
+comp_display = complement[:display_len]      + ("..." if sequence_length > display_len else "")
+rcomp_display= reverse_complement[:display_len] + ("..." if sequence_length > display_len else "")
+rna_display  = rna_transcript[:display_len]  + ("..." if sequence_length > display_len else "")
+rev_display  = reversed_sequence[:display_len] + ("..." if sequence_length > display_len else "")
 
-    Args:
-        sequence (str): DNA sequence.
-        motif    (str): Pattern to count.
+print(f"\n  Original (5'→3')        : {seq_display}")
+print(f"  Complement (3'→5')      : {comp_display}")
+print(f"  Rev. Complement (5'→3') : {rcomp_display}")
+print(f"  RNA Transcript          : {rna_display}")
+print(f"  Reversed                : {rev_display}")
 
-    Returns:
-        int: Number of occurrences.
-    """
-    # YOUR CODE HERE:
-    pass
+# Verify complement is correct length
+print(f"\n  Original length          : {len(sequence_clean)}")
+print(f"  Complement length        : {len(complement)}")
+print(f"  Lengths match            : {len(sequence_clean) == len(complement)}")
 
-
-def has_restriction_site(sequence, enzyme_name, site):
-    """
-    Check if sequence contains a restriction enzyme site.
-
-    Args:
-        sequence    (str): DNA sequence.
-        enzyme_name (str): Name of restriction enzyme.
-        site        (str): Recognition site sequence.
-
-    Returns:
-        tuple: (bool found, int position or -1)
-    """
-    # YOUR CODE HERE:
-    pass
+# Is the sequence a palindrome? (same as reverse complement)
+is_palindrome = sequence_clean == reverse_complement
+print(f"  Is palindromic           : {is_palindrome}")
 
 
 # ============================================================
-# SECTION 7: STATISTICS AND COMPARISON
+# SECTION 6: CODON ANALYSIS
 # ============================================================
-# Tests: math operators, comparisons, type conversion
+# Tests: string slicing, math operators, comparisons, f-strings
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 6: CODON ANALYSIS")
+print(f"{'─' * WIDTH}")
 
-def sequence_statistics(sequence):
-    """
-    Calculate comprehensive statistics for a sequence.
+# Extract codons manually (groups of 3)
+# We know the sequence length, so we calculate positions manually
+total_codons    = sequence_length // 3
+leftover_bases  = sequence_length % 3
 
-    Args:
-        sequence (str): DNA sequence.
+# First 10 codons (or less if sequence is short)
+codon_1  = sequence_clean[0:3]   if sequence_length >= 3  else "---"
+codon_2  = sequence_clean[3:6]   if sequence_length >= 6  else "---"
+codon_3  = sequence_clean[6:9]   if sequence_length >= 9  else "---"
+codon_4  = sequence_clean[9:12]  if sequence_length >= 12 else "---"
+codon_5  = sequence_clean[12:15] if sequence_length >= 15 else "---"
+codon_6  = sequence_clean[15:18] if sequence_length >= 18 else "---"
+codon_7  = sequence_clean[18:21] if sequence_length >= 21 else "---"
+codon_8  = sequence_clean[21:24] if sequence_length >= 24 else "---"
+codon_9  = sequence_clean[24:27] if sequence_length >= 27 else "---"
+codon_10 = sequence_clean[27:30] if sequence_length >= 30 else "---"
 
-    Returns:
-        dict: All statistical measures.
-    """
-    # YOUR CODE HERE:
-    # Return dict with:
-    # length, a_count, t_count, g_count, c_count,
-    # gc_percent, at_percent, gc_ratio (G/C),
-    # at_ratio (A/T), melting_temp
-    pass
+# Last codon
+last_codon_pos  = (total_codons - 1) * 3
+last_codon_seq  = sequence_clean[last_codon_pos:last_codon_pos + 3]
 
+# Is the first codon a start codon?
+first_codon_is_start = codon_1 == "ATG"
 
-def compare_sequences(seq1, seq2):
-    """
-    Compare two sequences and return similarity metrics.
+# Is the last codon a stop codon?
+last_is_stop = (
+    last_codon_seq == "TAA" or
+    last_codon_seq == "TAG" or
+    last_codon_seq == "TGA"
+)
 
-    Args:
-        seq1 (str): First DNA sequence.
-        seq2 (str): Second DNA sequence.
+# Count ATG occurrences (potential start codons)
+atg_count = sequence_clean.count("ATG")
 
-    Returns:
-        dict: Comparison metrics.
-    """
-    # YOUR CODE HERE:
-    # Return dict with:
-    # same_length, length_diff, identical (seq1==seq2),
-    # gc_diff (abs difference in GC%), shorter, longer
-    pass
+# Count stop codons
+taa_count = sequence_clean.count("TAA")
+tag_count = sequence_clean.count("TAG")
+tga_count = sequence_clean.count("TGA")
+stop_count = taa_count + tag_count + tga_count
 
+# Reading frame 2 and 3 first codons
+frame2_codon1 = sequence_clean[1:4]  if sequence_length >= 4  else "---"
+frame3_codon1 = sequence_clean[2:5]  if sequence_length >= 5  else "---"
 
-def calculate_similarity(seq1, seq2):
-    """
-    Calculate percentage identity between two sequences.
+print(f"\n  Codon Statistics:")
+print(f"  {'─' * 40}")
+print(f"  Total codons      : {total_codons}")
+print(f"  Leftover bases    : {leftover_bases}")
+print(f"  ATG occurrences   : {atg_count}")
+print(f"  TAA occurrences   : {taa_count}")
+print(f"  TAG occurrences   : {tag_count}")
+print(f"  TGA occurrences   : {tga_count}")
+print(f"  Stop codon total  : {stop_count}")
 
-    Only compares positions up to the shorter sequence length.
+print(f"\n  Reading Frame 1 (first 10 codons):")
+print(f"  Pos  1: {codon_1}   {'← START ✓' if codon_1 == 'ATG' else ''}")
+print(f"  Pos  2: {codon_2}")
+print(f"  Pos  3: {codon_3}")
+print(f"  Pos  4: {codon_4}")
+print(f"  Pos  5: {codon_5}")
+print(f"  Pos  6: {codon_6}")
+print(f"  Pos  7: {codon_7}")
+print(f"  Pos  8: {codon_8}")
+print(f"  Pos  9: {codon_9}")
+print(f"  Pos 10: {codon_10}")
+print(f"  ...")
+print(f"  Last:   {last_codon_seq}   {'← STOP ✓' if last_is_stop else '← no stop codon'}")
 
-    Args:
-        seq1 (str): First DNA sequence.
-        seq2 (str): Second DNA sequence.
+print(f"\n  Reading Frame 2 (starts at position 1):")
+print(f"  First codon: {frame2_codon1}")
+print(f"\n  Reading Frame 3 (starts at position 2):")
+print(f"  First codon: {frame3_codon1}")
 
-    Returns:
-        float: Percentage of matching positions (0.0-100.0).
-    """
-    # YOUR CODE HERE:
-    # Count matching positions at same index
-    # Return matches / min_length * 100
-    pass
-
-
-# ============================================================
-# SECTION 8: REPORT GENERATOR
-# ============================================================
-# Tests: f-strings, print(), string formatting, all topics
-
-
-def generate_full_report(sequence, sequence_name="Unknown"):
-    """
-    Generate a complete analysis report for a DNA sequence.
-
-    Args:
-        sequence      (str): DNA sequence to analyze.
-        sequence_name (str): Name/ID of the sequence.
-    """
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    width     = 62
-
-    # Header
-    print(f"\n{'═' * width}")
-    print(f"║ {'DNA SEQUENCE ANALYSIS REPORT':^{width-4}} ║")
-    print(f"║ {('Generated: ' + timestamp):^{width-4}} ║")
-    print(f"{'═' * width}")
-
-    # YOUR CODE HERE - generate complete report including:
-
-    # SECTION 1: Sequence Info
-    # - Name, length, first/last 10 chars (with ... if longer)
-    print_section("SEQUENCE INFORMATION")
-    # YOUR CODE HERE
-
-    # SECTION 2: Validation
-    print_section("VALIDATION")
-    # YOUR CODE HERE - run validate_sequence() and display results
-    # Show ✓ or ✗ for each check
-
-    # SECTION 3: Nucleotide Composition
-    print_section("NUCLEOTIDE COMPOSITION")
-    # YOUR CODE HERE - counts and percentages for each nucleotide
-    # Include a mini bar chart for each:
-    # A: ████████░░░░░░░░░░░░  40.0%  (count: X)
-
-    # SECTION 4: GC Content Analysis
-    print_section("GC CONTENT ANALYSIS")
-    # YOUR CODE HERE
-    # - GC% and AT%
-    # - Classification (Low/Normal/High)
-    # - Visual bar
-    # - Melting temperature
-
-    # SECTION 5: Sequence Manipulations
-    print_section("SEQUENCE MANIPULATIONS")
-    # YOUR CODE HERE
-    # - Complement
-    # - Reverse complement
-    # - RNA transcript
-
-    # SECTION 6: Codon Analysis
-    print_section("CODON ANALYSIS")
-    # YOUR CODE HERE
-    # - Total codons
-    # - First 5 codons
-    # - Has start/stop codon
-    # - Count ATG occurrences
-
-    # SECTION 7: Restriction Sites
-    print_section("RESTRICTION ENZYME SITES")
-    # Check these common restriction enzymes:
-    enzymes = [
-        ("EcoRI",  "GAATTC"),
-        ("BamHI",  "GGATCC"),
-        ("HindIII","AAGCTT"),
-        ("NotI",   "GCGGCCGC"),
-        ("XhoI",   "CTCGAG"),
-    ]
-    # YOUR CODE HERE
-    # For each enzyme: show if found and at what position
-
-    # Footer
-    print(f"\n{'═' * width}\n")
+print(f"\n  Complete gene check:")
+print(f"  Has start codon : {first_codon_is_start}")
+print(f"  Has stop codon  : {last_is_stop}")
+print(f"  Is complete gene: {first_codon_is_start and last_is_stop and has_complete_codons}")
 
 
 # ============================================================
-# SECTION 9: INTERACTIVE MENU
+# SECTION 7: RESTRICTION ENZYME SITES
 # ============================================================
-# Tests: input(), type conversion, logical operators
+# Tests: strings (.find(), .count(), in), comparisons, f-strings
 
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 7: RESTRICTION ENZYME SITES")
+print(f"{'─' * WIDTH}")
 
-def get_sequence_from_user():
-    """
-    Get and validate a DNA sequence from user input.
+# Common restriction enzymes and their recognition sites
+ecori_site   = "GAATTC"    # EcoRI
+bamhi_site   = "GGATCC"    # BamHI
+hindiii_site = "AAGCTT"    # HindIII
+noti_site    = "GCGGCCGC"  # NotI
+xhoi_site    = "CTCGAG"    # XhoI
+tata_box     = "TATAAA"    # TATA box (promoter element)
 
-    Returns:
-        tuple: (sequence str, name str)
-    """
-    print("\n  Enter sequence name (or press ENTER for 'Unknown'):")
-    name = input("  > ").strip() or "Unknown"
+# Check presence and position
+ecori_found   = ecori_site   in sequence_clean
+bamhi_found   = bamhi_site   in sequence_clean
+hindiii_found = hindiii_site in sequence_clean
+noti_found    = noti_site    in sequence_clean
+xhoi_found    = xhoi_site    in sequence_clean
+tata_found    = tata_box     in sequence_clean
 
-    print("\n  Enter DNA sequence (A, T, G, C only):")
-    print("  (will be converted to uppercase automatically)")
-    raw = input("  > ").strip().upper().replace(" ", "")
+# Find positions (first occurrence, -1 if not found)
+ecori_pos   = sequence_clean.find(ecori_site)
+bamhi_pos   = sequence_clean.find(bamhi_site)
+hindiii_pos = sequence_clean.find(hindiii_site)
+noti_pos    = sequence_clean.find(noti_site)
+xhoi_pos    = sequence_clean.find(xhoi_site)
+tata_pos    = sequence_clean.find(tata_box)
 
-    if not raw:
-        print("  ⚠  No sequence entered.")
-        return None, None
+# Count occurrences
+ecori_count   = sequence_clean.count(ecori_site)
+bamhi_count   = sequence_clean.count(bamhi_site)
+hindiii_count = sequence_clean.count(hindiii_site)
+noti_count    = sequence_clean.count(noti_site)
+xhoi_count    = sequence_clean.count(xhoi_site)
+tata_count    = sequence_clean.count(tata_box)
 
-    if not is_valid_dna(raw):
-        print(f"  ✗  Invalid DNA sequence: contains non-ATGC characters")
-        return None, None
+# Display
+print(f"\n  {'Enzyme':<12} {'Site':<12} {'Found':<8} {'Position':>8} {'Count':>6}")
+print(f"  {'─' * 52}")
+print(f"  {'EcoRI':<12} {ecori_site:<12} {'✓' if ecori_found else '✗':<8} {ecori_pos:>8} {ecori_count:>6}")
+print(f"  {'BamHI':<12} {bamhi_site:<12} {'✓' if bamhi_found else '✗':<8} {bamhi_pos:>8} {bamhi_count:>6}")
+print(f"  {'HindIII':<12} {hindiii_site:<12} {'✓' if hindiii_found else '✗':<8} {hindiii_pos:>8} {hindiii_count:>6}")
+print(f"  {'NotI':<12} {noti_site:<12} {'✓' if noti_found else '✗':<8} {noti_pos:>8} {noti_count:>6}")
+print(f"  {'XhoI':<12} {xhoi_site:<12} {'✓' if xhoi_found else '✗':<8} {xhoi_pos:>8} {xhoi_count:>6}")
+print(f"  {'─' * 52}")
+print(f"  {'TATA box':<12} {tata_box:<12} {'✓' if tata_found else '✗':<8} {tata_pos:>8} {tata_count:>6}")
 
-    print(f"  ✓  Valid sequence accepted ({len(raw)} nucleotides)")
-    return raw, name
-
-
-def show_menu():
-    """Display the main menu."""
-    print("\n  ┌─────────────────────────────────┐")
-    print("  │         MAIN MENU               │")
-    print("  ├─────────────────────────────────┤")
-    print("  │  1. Analyze sample sequences    │")
-    print("  │  2. Enter your own sequence     │")
-    print("  │  3. Compare two sequences       │")
-    print("  │  4. Run all tests               │")
-    print("  │  0. Exit                        │")
-    print("  └─────────────────────────────────┘")
-    print("  Choice: ", end="")
-
-
-# ============================================================
-# SECTION 10: SAMPLE DATA AND TESTS
-# ============================================================
-# Real biological sequences for testing
-
-
-# Real gene fragments (shortened for learning purposes):
-SAMPLE_SEQUENCES = {
-    "TP53_fragment": {
-        "sequence": "ATGTTCAAGACAGATTTTCAACTCTGTCTCCTTCCTCTTCCTACAGTACTCCCCTGCCCTCAACAAGATGTTTTGCCAACTGGCCAAGACCTGCCCTGTGCAGCTGTGGGTTGATTCCACACCCCCGCCCGGCACCCGCGTCCGCGCCATGGCCATCTACAAGCAGTCACAGCACATGACGGAGGTTGTGAGGCGCTGCCCCCACCATGAGCGCTGCTCAGATAGCGATGGTCTGGCCCCTCCTCAGCATCTTATCCGAGTGGAAGGAAATTTGCGTGTGGAGTATTTGGATGACAGAAACACTTTTCGACATAGTGTGGTGGTGCCCTATGAGCCGCCTGAGGTTGGCTCTGACTGTACCACCATCCACTACAACTACATGTGTAACAGTTCCTGCATGGGCGGCATGAACCGGAGGCCCATCCTCACCATCATCACACTGGAAGACTCCAGTGGTAATCTACTGGGACGGAACAGCTTTGAGGTGCGTGTTTGTGCCTGTCCTGGGAGAGACCGGCGCACAGAGGAAGAGAATCTCCGCAAGAAAGGGGAGCCTCACCACGAGCTGCCCCCAGGGAGCACTAAGCGAGCACTGCCCAACAACACCAGCTCCTCTCCCCAGCCAAAGAAGAAACCACTGGATGGAGAATATTTCACCCTTCAGATCCGTGGGCGTGAGCGCTTCGAGATGTTCCGAGAGCTGAATGAGGCCTTGGAACTCAAGCCGGTGGAAATATTCTGGACCAGTGGTAATGAAGTGCAAAAGCGGGGAGAAAGACCGGCATTTCCGGACGATATTGAACAATGGATGATTTGAAGAAATGTTCCGTGGGGAGAAATCGTAAGCCCTCCTGGGCCAGTACCACAGTTATCCCTAAGACTCATAACCCCAATGCTTCTTACACAGAAGATCATGCAAGCATTGCCTCAGACCCAGGATGGCAAGTGGAAGAAATCAAAGTGCCTGTGGCTTCCTTTAGATGCAGCAGTTTTATTGTGGGGAGCAGGCTGTGGTGGTGTCCCCAGGGAAAGCTGTGGCCTGGATGTGGAATACCTACCAGGGAAGCAAAGGCCAAATACAGAATCAGAGGGCAGAGATGTTGGGGAGAAAGAAGCTACTTTCAAAGACTGGGCAGCTTTGAGTCAGTTTCCAAAGAGCCGGCTCCTCAGATTCCAGGTCCCCAGAGCCACCTGAATGGAAGGAAAATGCTCAGGAAACATTTTCAGTGGTT",
-        "name": "TP53 tumor suppressor gene (human)"
-    },
-    "insulin_fragment": {
-        "sequence": "ATGGCCCTGTGGATGCGCCTCCTGCCCCTGCTGGCGCTGCTGGCCCTCTGGGGACCTGACCCAGCCGCAGCCTTTGTGAACCAACACCTGTGCGGCTCACACCTGGTGGAAGCTCTCTACCTAGTGTGCGGGGAACGAGGCTTCTTCTACACACCCAAGACCCGCCGGGAGGCAGAGGACCTGCAGGTGGGGCAGGTGGAGCTGGGCGGGGGCCCTGGTGCAGGCAGCCTGCAGCCCTTGGCCCTGGAGGGGTCCCTGCAGAAGCGTGGCATTGTGGAACAATGCTGTACCAGCATCTGCTCCCTCTACCAGCTGGAGAACTACTGCAACTAG",
-        "name": "Insulin gene fragment (human)"
-    },
-    "ecoli_16s": {
-        "sequence": "ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGACGCGTACAGGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTCGACCAAAGGTAACGAGGTAACAACCATGCGAGTGTTGAAGTTCGGCGGTACATCAGTGGCAAATGCAGAACGTTTTCTGCGTGTTGCCGATATTCTGGAAAGCAATGCCAGGCAGGGGCAGGTGGCCACCGTCCTCTCTGCCCCCGCCAAAATCACCAACCACCTGGTGGCGATGATTGAAAAAACCATTAGCGGCCAGGATGCTTTACCCAATATCAGCGATGCCGAACGTATTTTTGCCGAACTTTTGACGGGACTCGCCGCCGCCCAGCCGGGGTTCCCGCTGGCGCAATTGAAAACTTTCGTCGATCAGGAATTTGCCCAAATAAAACATGTCCTGCATGGCATTAGTTTGTTGGGGCAGTGCCCGGATAGCATCAACGCCGCGCTGATTTGCCGTGGCGAGAAAATGTCGATCGCCATTATGGCCGGCGTATTAGAAGCGCGCGGTCACAACGTTACTGTTATCGATCCGGTCGAAAAACTGCTGGCAGTGGGGCATTACCTCGAATCTACCGTCGATATTGCTGAGTCCACCCGCCGTATTGCGGCAAGCCGCATTCCGGCTGATCACATGGTGCTGATGGCAGGTTTCACCGCCGGTAATGAAAAAGGCGAACTGGTGGTGCTTGGACGCAACGGTTCCGACTACTCTGCTGCGGTGCTGGCTGCCTGTTTACGCGCCGATTGTTGCGAGATTTGGACGGACGTTGACGGGGTCTATACCTGCGACCCGCGTCAGGTGCCCGATGCGAGGTTGTTGAAGTCGATGTCCTACCAGGAAGCGATGGAGCTTTCCTACTTCGGCGCTAAAGTTCTTCACCCCCGCACCATTACCCCCATCGCCCAGTTCCAGATCCCTTGCCTGATTAAAAATACCGGAAATCCTCAAGCACCGTCTATAAAATTTATTTGCTTTGTGAGCGGATAACAATTATAATAGATTCAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGCCAAGCTTGCATGCCTGCAG",
-        "name": "E. coli 16S rRNA gene fragment"
-    },
-    "covid_spike": {
-        "sequence": "ATGTTCGTGTTCCTGGTGCTGCTGCCTCTGGTGTCAAGCCAGTGTGTGAACCTGACCACCAGAACACAGCTGCCTCCAGCCTATACCAACAGCTTCACAAGAGGCGTGTACTATCCCGACAAGGTTTTCAGATCTAGCGTGTATCTGCCTCTCCACCTTTTGAAGTATAATGTTACAGGCTTTATGGAAGTGAGTGTGAACTTCAGTTTCGGTATCGGTCCCGGCATCGTGCCTACCAAAACCAACAGCCCCTTTCGATTCAACGTGAAACCCTTCATCACCCAAGTGTCTAAAACCAGATCTACAGCCTCTAACAGGCAGCAACAGAACAAATGTTTCGGCAGCACTGGACATCAGAAGGCTTCCTGTGACAGCCATCAGAAGGGCCACAGCCATCACAAGCACAGACAGGCATCAGCAAGCACATCAGAAGGCAACAGCAATCAGAAGGCAAAGCCCAACAGCAATCAGAAGGCAACAGCAATCAGAAGGCAACAGCAATCAGAAGG",
-        "name": "SARS-CoV-2 Spike protein gene (fragment)"
-    }
-}
-
-
-def run_sample_analysis():
-    """Run analysis on all sample sequences."""
-    print_section("SAMPLE SEQUENCE ANALYSIS")
-
-    for key, data in SAMPLE_SEQUENCES.items():
-        seq  = data["sequence"]
-        name = data["name"]
-
-        print(f"\n  {'─'*58}")
-        print(f"  Analyzing: {name}")
-        print(f"  {'─'*58}")
-
-        # YOUR CODE HERE:
-        # For each sequence print:
-        # 1. Length
-        # 2. GC% with bar
-        # 3. Has start codon?
-        # 4. Has stop codon?
-        # 5. Melting temperature
-        # 6. Top restriction site if found
-
-
-def run_comparison_demo():
-    """Compare two sample sequences."""
-    print_section("SEQUENCE COMPARISON DEMO")
-
-    seq1 = SAMPLE_SEQUENCES["TP53_fragment"]["sequence"][:100]
-    seq2 = SAMPLE_SEQUENCES["insulin_fragment"]["sequence"][:100]
-
-    # YOUR CODE HERE:
-    # Compare seq1 and seq2 using compare_sequences()
-    # and calculate_similarity()
-    # Print a formatted comparison report
-
-
-def run_all_tests():
-    """Run built-in tests to verify all functions work."""
-    print_section("RUNNING TESTS")
-
-    tests_passed = 0
-    tests_failed = 0
-
-    def test(description, actual, expected):
-        nonlocal tests_passed, tests_failed
-        # YOUR CODE HERE:
-        # Compare actual to expected
-        # Print ✓ or ✗ with description
-        # Update counters
-        pass
-
-    # Test is_valid_dna():
-    test("Valid DNA uppercase",     is_valid_dna("ATCG"),    True)
-    test("Invalid DNA lowercase",   is_valid_dna("atcg"),    False)
-    test("Invalid DNA with X",      is_valid_dna("ATXG"),    False)
-    test("Empty sequence invalid",  is_valid_dna(""),        False)
-
-    # Test count_nucleotides():
-    counts = count_nucleotides("ATCGGCTA")
-    test("Count A = 2",  counts["A"], 2)
-    test("Count T = 2",  counts["T"], 2)
-    test("Count G = 2",  counts["G"], 2)
-    test("Count C = 2",  counts["C"], 2)
-
-    # Test calculate_gc_content():
-    test("GC 50%",  calculate_gc_content("ATCG"),  50.0)
-    test("GC 100%", calculate_gc_content("GCGC"),  100.0)
-    test("GC 0%",   calculate_gc_content("ATAT"),  0.0)
-
-    # Test get_complement():
-    test("Complement ATCG", get_complement("ATCG"), "TAGC")
-    test("Complement AAAA", get_complement("AAAA"), "TTTT")
-
-    # Test get_reverse_complement():
-    test("Rev comp ATCG", get_reverse_complement("ATCG"), "CGAT")
-    test("Rev comp AAAA", get_reverse_complement("AAAA"), "TTTT")
-
-    # Test has_start_codon():
-    test("Has start ATG",     has_start_codon("ATGCCC"), True)
-    test("No start codon",    has_start_codon("CCCATG"), False)
-
-    # Test has_stop_codon():
-    test("Has stop TAA",  has_stop_codon("CCCTAA"), True)
-    test("Has stop TAG",  has_stop_codon("CCCTAG"), True)
-    test("Has stop TGA",  has_stop_codon("CCCTGA"), True)
-    test("No stop codon", has_stop_codon("CCCAAA"), False)
-
-    # Test transcribe_to_rna():
-    test("Transcribe ATCG", transcribe_to_rna("ATCG"), "AUCG")
-    test("Transcribe TTTT", transcribe_to_rna("TTTT"), "UUUU")
-
-    # Test extract_codons():
-    test("Extract codons",
-         extract_codons("ATGCGATAA"),
-         ["ATG", "CGA", "TAA"])
-
-    # Test calculate_similarity():
-    test("Identical 100%",   calculate_similarity("ATCG", "ATCG"), 100.0)
-    test("Completely diff 0%", calculate_similarity("AAAA", "TTTT"), 0.0)
-    test("50% similar",      calculate_similarity("AAAA", "AATT"), 50.0)
-
-    # Summary:
-    total = tests_passed + tests_failed
-    print(f"\n  Results: {tests_passed}/{total} tests passed")
-    if tests_failed == 0:
-        print("  ✓ All tests passed!")
-    else:
-        print(f"  ✗ {tests_failed} test(s) failed - check your functions")
+# Total sites found
+total_sites_found = (
+    ecori_count + bamhi_count + hindiii_count +
+    noti_count + xhoi_count
+)
+print(f"\n  Total restriction sites : {total_sites_found}")
 
 
 # ============================================================
-# MAIN PROGRAM
+# SECTION 8: SEQUENCE COMPARISON
 # ============================================================
+# Tests: strings, comparisons, math, f-strings
+
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 8: SEQUENCE COMPARISON")
+print(f"{'─' * WIDTH}")
+
+# Second sequence - fragment of insulin gene (human)
+sequence2_raw  = "ATGGCCCTGTGGATGCGCCTCCTGCCCCTGCTGGCGCTGCTGGCCCTCTGG"
+sequence2_name = "Insulin gene fragment"
+sequence2      = sequence2_raw.strip().upper()
+length2        = len(sequence2)
+
+# Basic comparison
+are_identical       = sequence_clean == sequence2
+same_length         = sequence_length == length2
+length_difference   = abs(sequence_length - length2)
+
+# GC content of sequence 2
+gc2_count   = sequence2.count("G") + sequence2.count("C")
+gc2_percent = gc2_count / length2 * 100
+gc_diff     = abs(gc_percent - gc2_percent)
+
+# Compare first 50 chars (or length of shorter)
+compare_len = 50
+seq1_50 = sequence_clean[:compare_len]
+seq2_50 = sequence2[:compare_len]
+
+# Count matching positions manually
+# We compare char by char using indexing
+# (without loops - we'll compare known positions)
+match_0  = seq1_50[0]  == seq2_50[0]  if compare_len >= 1  else False
+match_1  = seq1_50[1]  == seq2_50[1]  if compare_len >= 2  else False
+match_2  = seq1_50[2]  == seq2_50[2]  if compare_len >= 3  else False
+match_3  = seq1_50[3]  == seq2_50[3]  if compare_len >= 4  else False
+match_4  = seq1_50[4]  == seq2_50[4]  if compare_len >= 5  else False
+match_5  = seq1_50[5]  == seq2_50[5]  if compare_len >= 6  else False
+match_6  = seq1_50[6]  == seq2_50[6]  if compare_len >= 7  else False
+match_7  = seq1_50[7]  == seq2_50[7]  if compare_len >= 8  else False
+match_8  = seq1_50[8]  == seq2_50[8]  if compare_len >= 9  else False
+match_9  = seq1_50[9]  == seq2_50[9]  if compare_len >= 10 else False
+
+# Count matches (bool arithmetic - True = 1)
+matches_first_10 = (
+    int(match_0) + int(match_1) + int(match_2) + int(match_3) +
+    int(match_4) + int(match_5) + int(match_6) + int(match_7) +
+    int(match_8) + int(match_9)
+)
+similarity_first_10 = matches_first_10 / 10 * 100
+
+# Shared motifs
+shared_atg  = sequence_clean.count("ATG")  > 0 and sequence2.count("ATG")  > 0
+shared_tata = sequence_clean.count("TATA") > 0 and sequence2.count("TATA") > 0
+
+print(f"\n  Sequence 1: {sequence_name[:35]}")
+print(f"  Sequence 2: {sequence2_name}")
+print(f"\n  {'─' * 50}")
+print(f"  {'Metric':<28} {'Seq 1':>10} {'Seq 2':>10}")
+print(f"  {'─' * 50}")
+print(f"  {'Length (nt)':<28} {sequence_length:>10} {length2:>10}")
+print(f"  {'GC content (%)':<28} {gc_percent:>10.1f} {gc2_percent:>10.1f}")
+print(f"  {'AT content (%)':<28} {at_percent:>10.1f} {100 - gc2_percent:>10.1f}")
+print(f"  {'A count':<28} {count_a:>10} {sequence2.count('A'):>10}")
+print(f"  {'T count':<28} {count_t:>10} {sequence2.count('T'):>10}")
+print(f"  {'G count':<28} {count_g:>10} {sequence2.count('G'):>10}")
+print(f"  {'C count':<28} {count_c:>10} {sequence2.count('C'):>10}")
+print(f"  {'─' * 50}")
+print(f"\n  Are identical         : {are_identical}")
+print(f"  Same length           : {same_length}")
+print(f"  Length difference     : {length_difference} nt")
+print(f"  GC content difference : {gc_diff:.1f}%")
+print(f"  Similarity (first 10) : {similarity_first_10:.0f}%")
+print(f"  Both have ATG         : {shared_atg}")
+print(f"  Both have TATA        : {shared_tata}")
 
 
-def main():
-    """Main program entry point."""
-    print_header()
+# ============================================================
+# SECTION 9: MATHEMATICAL ANALYSIS
+# ============================================================
+# Tests: math operators, numbers, type conversion, f-strings
 
-    # Run tests first to verify functions work:
-    run_all_tests()
+print(f"\n{'─' * WIDTH}")
+print(f"  SECTION 9: MATHEMATICAL ANALYSIS")
+print(f"{'─' * WIDTH}")
 
-    # Analyze a sample sequence with full report:
-    print_section("FULL ANALYSIS DEMO")
-    demo_seq  = SAMPLE_SEQUENCES["TP53_fragment"]["sequence"][:150]
-    demo_name = "TP53 Fragment (first 150 nt)"
-    generate_full_report(demo_seq, demo_name)
+# Molecular weight calculation
+# Average MW of nucleotides (Da):
+# A = 313.21, T = 304.19, G = 329.21, C = 289.18
+mw_a = 313.21
+mw_t = 304.19
+mw_g = 329.21
+mw_c = 289.18
+water = 18.02   # subtract one water per phosphodiester bond
 
-    # Run sample analysis on all sequences:
-    run_sample_analysis()
+# Total molecular weight of single strand
+total_mw_single = (
+    count_a * mw_a +
+    count_t * mw_t +
+    count_g * mw_g +
+    count_c * mw_c -
+    (sequence_length - 1) * water
+)
 
-    # Run comparison demo:
-    run_comparison_demo()
+# Double-stranded DNA molecular weight
+# Complement: same counts but A↔T and G↔C swapped
+comp_mw = (
+    count_a * mw_t +   # A pairs with T
+    count_t * mw_a +   # T pairs with A
+    count_g * mw_c +   # G pairs with C
+    count_c * mw_g -   # C pairs with G
+    (sequence_length - 1) * water
+)
+total_mw_double = total_mw_single + comp_mw
 
-    # Interactive menu (optional - comment out if not using input()):
-    # while True:
-    #     show_menu()
-    #     choice = input().strip()
-    #     if choice == "0":
-    #         print("\n  Goodbye!\n")
-    #         break
-    #     elif choice == "1":
-    #         run_sample_analysis()
-    #     elif choice == "2":
-    #         seq, name = get_sequence_from_user()
-    #         if seq:
-    #             generate_full_report(seq, name)
-    #     elif choice == "3":
-    #         run_comparison_demo()
-    #     elif choice == "4":
-    #         run_all_tests()
-    #     else:
-    #         print("  Invalid choice. Please try again.")
+# Concentration calculations
+# Number of molecules per mole (Avogadro)
+avogadro = 6.022e23
+
+# If we have 1 microgram of this DNA
+# how many molecules?
+mass_ug         = 1.0                          # micrograms
+mass_g          = mass_ug * 1e-6               # convert to grams
+moles           = mass_g / (total_mw_single / 1000)  # MW in kDa→ g/mol
+molecules       = moles * avogadro
+
+# GC Skew: (G - C) / (G + C)
+# Positive skew = more G than C (leading strand characteristics)
+gc_skew = (count_g - count_c) / (count_g + count_c) if (count_g + count_c) > 0 else 0.0
+
+# AT Skew: (A - T) / (A + T)
+at_skew = (count_a - count_t) / (count_a + count_t) if (count_a + count_t) > 0 else 0.0
+
+# Entropy-like measure: how "random" is the sequence?
+# Perfect random: each nucleotide = 25%
+# Measure deviation from 25%
+deviation_a = abs(percent_a - 25.0)
+deviation_t = abs(percent_t - 25.0)
+deviation_g = abs(percent_g - 25.0)
+deviation_c = abs(percent_c - 25.0)
+avg_deviation = (deviation_a + deviation_t + deviation_g + deviation_c) / 4
+
+# Dinucleotide counts (selected)
+cg_count = sequence_clean.count("CG")   # CpG sites
+at_dinuc  = sequence_clean.count("AT")
+gc_dinuc  = sequence_clean.count("GC")
+
+print(f"\n  Molecular Weight:")
+print(f"  {'─' * 40}")
+print(f"  Single strand  : {total_mw_single:>12,.1f} Da")
+print(f"  Double strand  : {total_mw_double:>12,.1f} Da")
+print(f"  Per nucleotide : {total_mw_single/sequence_length:>12.1f} Da/nt")
+print(f"\n  Concentration (1 µg sample):")
+print(f"  Mass (g)       : {mass_g:.2e} g")
+print(f"  Moles          : {moles:.2e} mol")
+print(f"  Molecules      : {molecules:.2e}")
+print(f"\n  Sequence Skew:")
+print(f"  GC Skew        : {gc_skew:>+.4f}  ({'G-rich' if gc_skew > 0 else 'C-rich' if gc_skew < 0 else 'balanced'})")
+print(f"  AT Skew        : {at_skew:>+.4f}  ({'A-rich' if at_skew > 0 else 'T-rich' if at_skew < 0 else 'balanced'})")
+print(f"  Avg deviation  : {avg_deviation:.2f}% from random")
+print(f"\n  Dinucleotide Counts:")
+print(f"  CpG sites      : {cg_count:>4}")
+print(f"  AT dinuc       : {at_dinuc:>4}")
+print(f"  GC dinuc       : {gc_dinuc:>4}")
 
 
-if __name__ == "__main__":
-    main()
+# ============================================================
+# SECTION 10: FINAL SUMMARY REPORT
+# ============================================================
+# Tests: ALL Module 01 topics combined
+
+print(f"\n{'═' * WIDTH}")
+print(f"║ {'FINAL ANALYSIS SUMMARY':^{WIDTH - 4}} ║")
+print(f"{'═' * WIDTH}")
+
+print(f"""
+  Gene          : {gene_id} ({sequence_name})
+  Organism      : {organism}
+  Chromosome    : {chromosome}
+
+  ┌─────────────────────────────────────────────────────┐
+  │ SEQUENCE                                            │
+  │  Length     : {sequence_length:<6} nucleotides               │
+  │  Codons     : {total_codons:<6} complete codons              │
+  │  Is valid   : {str(is_only_valid_chars and is_not_empty):<6}                           │
+  │  Complete   : {str(is_complete_gene):<6}                           │
+  ├─────────────────────────────────────────────────────┤
+  │ COMPOSITION                                         │
+  │  A: {percent_a:4.1f}%   T: {percent_t:4.1f}%   G: {percent_g:4.1f}%   C: {percent_c:4.1f}%  │
+  │  GC content : {gc_percent:5.1f}% ({gc_class})              │
+  │  AT content : {at_percent:5.1f}%                           │
+  ├─────────────────────────────────────────────────────┤
+  │ THERMAL PROPERTIES                                  │
+  │  Tm (Wallace)  : {tm_wallace}°C                         │
+  │  Tm (Modified) : {tm_modified:.1f}°C                       │
+  │  In PCR range  : {str(in_pcr_range):<6}                          │
+  ├─────────────────────────────────────────────────────┤
+  │ STRUCTURE                                           │
+  │  Has start (ATG) : {str(has_start_codon):<6}                        │
+  │  Has stop codon  : {str(has_stop_codon):<6}                        │
+  │  Is palindrome   : {str(is_palindrome):<6}                        │
+  │  GC skew         : {gc_skew:>+.4f}                      │
+  ├─────────────────────────────────────────────────────┤
+  │ MOLECULAR WEIGHT                                    │
+  │  Single strand : {total_mw_single:>12,.1f} Da               │
+  │  Double strand : {total_mw_double:>12,.1f} Da               │
+  └─────────────────────────────────────────────────────┘
+""")
+
+print(f"{'═' * WIDTH}")
+print(f"  Analysis complete. All results computed using Module 01 topics only.")
+print(f"  No functions, no if/else, no loops, no imports used.")
+print(f"{'═' * WIDTH}\n")
 
 # ============================================================
 # END OF PROJECT 01
