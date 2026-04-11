@@ -50,7 +50,7 @@
 | #  | Topic                  | Description                              | Status |
 |:--:|:-----------------------|:-----------------------------------------|:------:|
 | 1  | Variables              | Storing values, naming conventions       |   ✅    |
-| 2  | Data types - numbers   | `int`, `float`, mathematical operations  |   ⬜    |
+| 2  | Data types - numbers   | `int`, `float`, mathematical operations  |   ✅    |
 | 3  | Data types - text      | `str`, quotes, basic operations          |   ⬜    |
 | 4  | Data types - boolean   | `bool`, `True`, `False`                  |   ⬜    |
 | 5  | `print()`              | Printing output to screen                |   ⬜    |

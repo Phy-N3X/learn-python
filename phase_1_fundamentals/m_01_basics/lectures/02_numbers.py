@@ -29,7 +29,7 @@ print(big)            # 1000000000
 print(type(x))        # <class 'int'>
 
 # Python integers have no size limit (unlike C, Java)
-huge = 99999999999999999999999999999999999999
+huge = 999_999_999_999_999_999_999_999_999_999_999_999_999
 print(huge)           # works perfectly fine!
 
 
@@ -211,10 +211,10 @@ print(math.sqrt(144))   # 12.0
 print(math.pow(2, 10))  # 1024.0 ← always returns float!
 
 # Logarithms
-print(math.log(math.e)) # 1.0       natural log (base e)
-print(math.log(100, 10))# 2.0       log base 10
-print(math.log10(1000)) # 3.0       log base 10 shortcut
-print(math.log2(1024))  # 10.0      log base 2
+print(math.log(math.e))             # 1.0    natural log (base e)
+print(math.log(100, 10))    # 2.0    log base 10
+print(math.log10(1000))             # 3.0    log base 10 shortcut
+print(math.log2(1024))              # 10.0   log base 2
 
 # Trigonometry (radians!)
 print(math.sin(math.pi / 2))   # 1.0

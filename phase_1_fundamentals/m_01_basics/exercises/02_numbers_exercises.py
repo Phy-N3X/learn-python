@@ -260,4 +260,3 @@
 #    import cmath
 #    result = cmath.exp(cmath.pi * 1j) + 1
 #    Print result and use math.isclose(abs(result), 0)
-
