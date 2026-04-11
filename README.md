@@ -47,20 +47,20 @@
 
 <details> <summary><span style="font-size: 1.25em; font-weight: bold;">📗 Module 1: Absolute Basics ⭐</span></summary>
 
-| #  | Topic                  | Description                              | Status |
-|:--:|:-----------------------|:-----------------------------------------|:------:|
-| 1  | Variables              | Storing values, naming conventions       |   ✅    |
-| 2  | Data types - numbers   | `int`, `float`, mathematical operations  |   ✅    |
-| 3  | Data types - text      | `str`, quotes, basic operations          |   ⬜    |
-| 4  | Data types - boolean   | `bool`, `True`, `False`                  |   ⬜    |
-| 5  | `print()`              | Printing output to screen                |   ⬜    |
-| 6  | `input()`              | Getting data from user                   |   ⬜    |
-| 7  | Comments               | `#` single-line, `"""` multi-line        |   ⬜    |
-| 8  | Math operators         | `+` `-` `*` `/` `//` `%` `**`            |   ⬜    |
-| 9  | Comparison operators   | `==` `!=` `>` `<` `>=` `<=`              |   ⬜    |
-| 10 | Logical operators      | `and` `or` `not`                         |   ⬜    |
-| 11 | Type conversion        | `int()` `float()` `str()` `bool()`       |   ⬜    |
-| 12 | f-strings              | Text formatting                          |   ⬜    |
+| #  | Topic                | Description                             |  Status  |
+|:--:|:---------------------|:----------------------------------------|:--------:|
+| 1  | Variables            | Storing values, naming conventions      |    ✅     |
+| 2  | Data types - numbers | `int`, `float`, mathematical operations |    ✅     |
+| 3  | Data types - text    | `str`, quotes, basic operations         |    🔄    |
+| 4  | Data types - boolean | `bool`, `True`, `False`                 |    🔄    |
+| 5  | `print()`            | Printing output to screen               |    🔄    |
+| 6  | `input()`            | Getting data from user                  |    🔄    |
+| 7  | Comments             | `#` single-line, `"""` multi-line       |    ⬜     |
+| 8  | Math operators       | `+` `-` `*` `/` `//` `%` `**`           |    ⬜     |
+| 9  | Comparison operators | `==` `!=` `>` `<` `>=` `<=`             |    ⬜     |
+| 10 | Logical operators    | `and` `or` `not`                        |    ⬜     |
+| 11 | Type conversion      | `int()` `float()` `str()` `bool()`      |    ⬜     |
+| 12 | f-strings            | Text formatting                         |    ⬜     |
 
 </details>
 
