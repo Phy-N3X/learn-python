@@ -112,7 +112,6 @@
 #   d = "hello123"
 #   e = "12345"
 #   f = "   "
-#   g = "Hello World"
 #
 # Methods to check:
 # .isalpha() .isdigit() .isalnum() .isspace() .isupper() .islower() .istitle()

@@ -9,7 +9,7 @@
 
 
 # ------------------------------------------------------------
-# EXERCISE 1 ⬜ | EASY
+# EXERCISE 1 ✅ | EASY
 # ------------------------------------------------------------
 string_1 = "John Smith Goldlock"
 string_2 = 'John Smith Goldlock'
@@ -25,7 +25,7 @@ print(string_3, type(string_3))
 
 
 # ------------------------------------------------------------
-# EXERCISE 2 ⬜ | EASY
+# EXERCISE 2 ✅ | EASY
 # ------------------------------------------------------------
 word = "Bioinformatics"
 
@@ -38,7 +38,7 @@ print("5. ", len(word))
 
 
 # ------------------------------------------------------------
-# EXERCISE 3 ⬜ | EASY
+# EXERCISE 3 ✅ | EASY
 # ------------------------------------------------------------
 text = "Hello World Python"
 
@@ -52,7 +52,7 @@ print("6. ", text[::-1])
 
 
 # ------------------------------------------------------------
-# EXERCISE 4 ⬜ | EASY
+# EXERCISE 4 ✅ | EASY
 # ------------------------------------------------------------
 first = "Hello"
 second = "World"
@@ -65,123 +65,143 @@ print("4. ", first * 3 + " " + second)
 
 
 # ------------------------------------------------------------
-# EXERCISE 5 ⬜ | EASY
+# EXERCISE 5 ✅ | EASY
 # ------------------------------------------------------------
-# Given: text = "  Hello World  "
-#
-# Apply and print the result of:
-#   1. .upper()
-#   2. .lower()
-#   3. .strip()
-#   4. .strip() then .title()
-#   5. .strip() then .swapcase()
-#
-# After each step print the result AND its length.
-# Notice how length changes after strip()!
-
 text = "  Hello World  "
 
-print("1. ", text.upper(), len(text))
-print("2. ", text.lower(), len(text))
-print("3. ", text.strip(), len(text))
-print("4. ", text.strip(), text.title(), len(text))
-print("5. ", text.strip(), text.swapcase(), len(text))
+print("1. ", text.upper(), len(text.upper()))
+print("2. ", text.lower(), len(text.lower()))
+print("3. ", text.strip(), len(text.strip()))
+print("4. ", text.strip().title(), len(text.strip().title()))
+print("5. ", text.strip().swapcase(), len(text.strip().swapcase()))
+
 
 
 # ------------------------------------------------------------
-# EXERCISE 6 ⬜ | EASY-MEDIUM
+# EXERCISE 6 ✅ | EASY-MEDIUM
 # ------------------------------------------------------------
-# Given: text = "Python is great and Python is fun"
-#
-# Using search methods:
-#   1. Find the index of FIRST "Python"
-#   2. Find the index of LAST "Python" using rfind()
-#   3. Count how many times "Python" appears
-#   4. Count how many times "is" appears
-#   5. Does text start with "Python"?
-#   6. Does text end with "fun"?
-#   7. Print all results with labels.
-
 text = "Python is great and Python is fun"
 
-
-
-
-
-# ------------------------------------------------------------
-# EXERCISE 7 ⬜ | EASY-MEDIUM
-# ------------------------------------------------------------
-# Test ALL isX() methods on these strings.
-# For each string, print which methods return True.
-#
-# strings to test:
-#   a = "hello"
-#   b = "HELLO"
-#   c = "Hello World"
-#   d = "hello123"
-#   e = "12345"
-#   f = "   "
-#   g = "Hello World"
-#
-# Methods to check:
-# .isalpha() .isdigit() .isalnum() .isspace() .isupper() .islower() .istitle()
+print("First index of 'Python': ", text.find("Python"))
+print("Last index of 'Python': ", text.rfind("Python"))
+print("How many times 'Python' occurs: " , text.count("Python"))
+print("How many times 'is' occurs: ", text.count("is"))
+print("Does text start with 'Python'? ", text.startswith("Python"))
+print("Does text ends with 'fun'? ", text.endswith("fun"))
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 8 ⬜ | MEDIUM
+# EXERCISE 7 ✅ | EASY-MEDIUM
 # ------------------------------------------------------------
-# Given messy data (common in real bioinformatics!):
-#   data = "  ***ATCGGCTA***  "
-#
-#   1. Remove ALL whitespace from both ends
-#   2. Then remove ALL * characters from both ends
-#   3. Print the cleaned string
-#   4. Convert to lowercase
-#   5. Replace all 'a' with 'A' (back to uppercase A only)
-#   6. Print final result and its length
-#
-# Expected final result: "ATcggcTA" ... wait, figure it out!
-# Trace through each step carefully.
+a = "hello"
+print('1. "hello" has only alphabet: ', a.isalpha())
+print('2. "hello" has only digits: ', a.isdigit())
+print('3. "hello" has letters AND/OR digits: ', a.isalnum())
+print('4. "hello" has only whitespaces: ', a.isspace())
+print('5. "hello" has only big letters: ', a.isupper())
+print('6. "hello" has only small: ', a.islower())
+print('7. "hello" has capital first letters: ', a.istitle())
+
+b = "HELLO"
+print('1. "HELLO" has only alphabet: ', a.isalpha())
+print('2. "HELLO" has only digits: ', a.isdigit())
+print('3. "HELLO" has letters AND/OR digits: ', a.isalnum())
+print('4. "HELLO" has only whitespaces: ', a.isspace())
+print('5. "HELLO" has only big letters: ', a.isupper())
+print('6. "HELLO" has only small: ', a.islower())
+print('7. "HELLO" has capital first letters: ', a.istitle())
+
+c = "Hello World"
+print('1. "Hello World" has only alphabet: ', a.isalpha())
+print('2. "Hello World" has only digits: ', a.isdigit())
+print('3. "Hello World" has letters AND/OR digits: ', a.isalnum())
+print('4. "Hello World" has only whitespaces: ', a.isspace())
+print('5. "Hello World" has only big letters: ', a.isupper())
+print('6. "Hello World" has only small: ', a.islower())
+print('7. "Hello World" has capital first letters: ', a.istitle())
+
+d = "hello123"
+print('1. "hello123" has only alphabet: ', a.isalpha())
+print('2. "hello123" has only digits: ', a.isdigit())
+print('3. "hello123" has letters AND/OR digits: ', a.isalnum())
+print('4. "hello123" has only whitespaces: ', a.isspace())
+print('5. "hello123" has only big letters: ', a.isupper())
+print('6. "hello123" has only small: ', a.islower())
+print('7. "hello123" has capital first letter: ', a.istitle())
+
+e = "12345"
+print('1. "12345" has only alphabet: ', a.isalpha())
+print('2. "12345" has only digits: ', a.isdigit())
+print('3. "12345" has letters AND/OR digits: ', a.isalnum())
+print('4. "12345" has only whitespaces: ', a.isspace())
+print('5. "12345" has only big letters: ', a.isupper())
+print('6. "12345" has only small: ', a.islower())
+print('7. "12345" has capital first letter: ', a.istitle())
+
+f = "   "
+print('1. "   " has only alphabet: ', a.isalpha())
+print('2. "   " has only digits: ', a.isdigit())
+print('3. "   " has letters AND/OR digits: ', a.isalnum())
+print('4. "   " has only whitespaces: ', a.isspace())
+print('5. "   " has only big letters: ', a.isupper())
+print('6. "   " has only small: ', a.islower())
+print('7. "   " has capital first letter: ', a.istitle())
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 9 ⬜ | MEDIUM
+# EXERCISE 8 ✅ | MEDIUM
 # ------------------------------------------------------------
-# Given: sentence = "the quick brown fox jumps over the lazy dog"
-#
-#   1. Split into a list of words
-#   2. Print the list
-#   3. Print number of words using len()
-#   4. Join the words back with "-" separator
-#   5. Join the words back with " | " separator
-#   6. Split the original by "o" (not space) - what do you get?
-#   7. Print how many times letter "o" appears using count()
-#      Verify: does it match len(split_by_o) - 1?
+data = "  ***ATCGGCTA***  "
 
+data_stripped = data.strip()
 
+clear_data = data_stripped.strip("*")
+print(clear_data)
 
-# ------------------------------------------------------------
-# EXERCISE 10 ⬜ | MEDIUM
-# ------------------------------------------------------------
-# Given: name = "python"
-#
-# Use alignment methods to create this exact output
-# (total width = 20 characters for each):
-#
-#        python         (centered with spaces)
-# -------python-------- (centered with -)
-# python..............  (left justified with .)
-# ..............python  (right justified with .)
-# 00000000000000python  (right justified with 0... use rjust!)
-#
-# Print each line and verify length == 20 using len()
+clear_data_lower = clear_data.lower()
+print(clear_data_lower)
+
+clear_data_replaced = clear_data_lower.replace("a", "A")
+print(clear_data_replaced, len(clear_data_replaced))
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 11 ⬜ | MEDIUM
+# EXERCISE 9 ✅ | MEDIUM
+# ------------------------------------------------------------
+sentence = "the quick brown fox jumps over the lazy dog"
+
+word_list = sentence.split()
+print(word_list)
+print(len(word_list))
+
+print("-".join(word_list))
+print("|".join(word_list))
+
+split_by_o = sentence.split("o")
+print(split_by_o)
+print(sentence.count("o"))
+print(len(split_by_o))
+
+
+
+# ------------------------------------------------------------
+# EXERCISE 10 ✅ | MEDIUM
+# ------------------------------------------------------------
+name = "python"
+
+print(name.center(20), len(name.center(20)))
+print(name.center(20, "-"), len(name.center(20, "-")))
+print(name.ljust(20, "."), len(name.ljust(20, ".")))
+print(name.rjust(20, "."), len(name.rjust(20, ".")))
+print(name.rjust(20, "0"), len(name.rjust(20, "0")))
+
+
+
+# ------------------------------------------------------------
+# EXERCISE 11 🔄 | MEDIUM
 # ------------------------------------------------------------
 # Escape sequences practice.
 # Print EXACTLY this output (copy it exactly):
@@ -203,7 +223,7 @@ text = "Python is great and Python is fun"
 
 
 # ------------------------------------------------------------
-# EXERCISE 12 ⬜ | MEDIUM-HARD
+# EXERCISE 12 🔄 | MEDIUM-HARD
 # ------------------------------------------------------------
 # f-string formatting challenge.
 # Given:
@@ -233,7 +253,7 @@ text = "Python is great and Python is fun"
 
 
 # ------------------------------------------------------------
-# EXERCISE 13 ⬜ | MEDIUM-HARD
+# EXERCISE 13 🔄 | MEDIUM-HARD
 # ------------------------------------------------------------
 # String analysis - given any text, extract information.
 #
@@ -251,10 +271,21 @@ text = "Python is great and Python is fun"
 #   7. Print text in title case
 #   8. Print text reversed (entire string)
 
+text = "To be or not to be that is the question"
+print("1. Total characters (with spaces): ", len(text))
+print("2. Total characters (without spaces): ", len(text.replace(" ", "")))
+print("3. Total numbers of words: ", len(text.split()))
+print("4. Total numbers of unique words: ")
+print("5. Most common letter: ")
+print("6. Is a palindrome: ", )
+print("7. Text in title case: ", text.title())
+print("8. Reversed text: ", text[::-1])
+
+
 
 
 # ------------------------------------------------------------
-# EXERCISE 14 ⬜ | HARD
+# EXERCISE 14 🔄 | HARD
 # ------------------------------------------------------------
 # CSV parser - real world string manipulation.
 #
@@ -279,7 +310,7 @@ text = "Python is great and Python is fun"
 
 
 # ------------------------------------------------------------
-# EXERCISE 15 ⬜ | HARD
+# EXERCISE 15 🔄 | HARD
 # ------------------------------------------------------------
 # String manipulation challenge - build a formatter.
 #
