@@ -10,7 +10,7 @@
 
 
 # ------------------------------------------------------------
-# EXERCISE 1 ⬜ | EASY
+# EXERCISE 1 ✅ | EASY
 # ------------------------------------------------------------
 is_enrolled = True
 has_passed = True
@@ -26,7 +26,7 @@ print(has_scholarship, type(has_scholarship), int(has_scholarship))
 
 
 # ------------------------------------------------------------
-# EXERCISE 2 ⬜ | EASY
+# EXERCISE 2 ✅ | EASY
 # ------------------------------------------------------------
 a = 15
 b = 30
@@ -45,7 +45,7 @@ print(10 < a < 20)   # True
 
 
 # ------------------------------------------------------------
-# EXERCISE 3 ⬜ | EASY
+# EXERCISE 3 ✅ | EASY
 # ------------------------------------------------------------
 print("\nExercise 3:")
 print(True and True)              # True
@@ -62,7 +62,7 @@ print(True and (True or False))   # True
 
 
 # ------------------------------------------------------------
-# EXERCISE 4 ⬜ | EASY
+# EXERCISE 4 ✅ | EASY
 # ------------------------------------------------------------
 print("\nExercise 4:")
 print(bool(0))         # False
@@ -83,7 +83,7 @@ print(bool(False))     # False
 
 
 # ------------------------------------------------------------
-# EXERCISE 5 ⬜ | EASY
+# EXERCISE 5 ✅ | EASY
 # ------------------------------------------------------------
 text   = "Bioinformatics is amazing"
 vowels = ["a", "e", "i", "o", "u"]
@@ -102,7 +102,7 @@ print('8. Is 7 not in nums?', 7 not in nums)            # True
 
 
 # ------------------------------------------------------------
-# EXERCISE 6 ⬜ | EASY-MEDIUM
+# EXERCISE 6 ✅ | EASY-MEDIUM
 # ------------------------------------------------------------
 a = None
 b = None
@@ -112,263 +112,203 @@ e = []
 f = []
 
 print("\nExercise 6:")
-print(a is None)    # True
-print(a is b)       # True
-print(c is True)    # True
-print(c == d)       # True
-print(c is d)       # False
-print(e == f)       # True
-print(e is f)       # False
+print(a is None)        # True
+print(a is b)           # True
+print(c is True)        # True
+print(c == d)           # True
+print(c is d)           # False
+print(e == f)           # True
+print(e is f)           # False
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 7 ⬜ | EASY-MEDIUM
+# EXERCISE 7 ✅ | EASY-MEDIUM
 # ------------------------------------------------------------
-# Short-circuit evaluation.
-# Predict what gets PRINTED (not just the result).
-# Consider which functions get called.
-#
-# def always_true():
-#     print("evaluated A")
-#     return True
-#
-# def always_false():
-#     print("evaluated B")
-#     return False
-#
-# Expression 1: always_false() and always_true()
-# Expression 2: always_true() or always_false()
-# Expression 3: always_true() and always_false()
-# Expression 4: always_false() or always_true()
-#
-# Write prediction as comment for each, then verify.
+def always_true():
+    print("evaluated A")
+    return True
+
+def always_false():
+    print("evaluated B")
+    return False
+
+print("\nExercise 7:")
+always_false() and always_true()    # False - "evaluated B"
+always_true() or always_false()     # True - "evaluated A"
+always_true() and always_false()    # False - "evaluated B"
+always_false() or always_true()     # True - "evaluated A"
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 8 ⬜ | MEDIUM
+# EXERCISE 8 ✅ | MEDIUM
 # ------------------------------------------------------------
-# and/or return original values - not just True/False.
-# Predict the EXACT output (not just True/False) for each:
-#
-#   1 and 2
-#   0 and 2
-#   1 or 2
-#   0 or 2
-#   "" or "hello"
-#   "hi" or "hello"
-#   "" and "hello"
-#   "hi" and "hello"
-#   0 or "" or [] or None or "found it"
-#   1 and 2 and 3 and 4
-#
-# Write predictions as comments, then verify.
-# Write a comment explaining the pattern you see.
+print("\nExercise 8:")
+print(1 and 2)                                  # True - 2
+print(0 and 2)                                  # False - 0
+print(1 or 2)                                   # True - 1
+print(0 or 2)                                   # True - 2
+print("" or "hello")                            # True - "hello"
+print("hi" or "hello")                          # True - "hello"
+print("" and "hello")                           # False - ""
+print("hi" and "hello")                         # True - "hello"
+print(0 or "" or [] or None or "found it")      # True - "found it"
+print(1 and 2 and 3 and 4)                      # True - 4
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 9 ⬜ | MEDIUM
+# EXERCISE 9 ✅ | MEDIUM
 # ------------------------------------------------------------
-# Default value pattern using or.
-# Given these variables (some empty/None):
-#
-#   username  = ""
-#   nickname  = None
-#   full_name = "Anna Kowalski"
-#   city      = ""
-#   country   = "Poland"
-#
-# Use the "or" default pattern to print:
-#   display_name = username OR nickname OR full_name OR "Unknown"
-#   location     = city OR country OR "Location unknown"
-#
-# Then change username = "anna123" and repeat.
-# What changes and why?
+username  = ""
+nickname  = None
+full_name = "Anna Kowalski"
+city      = ""
+country   = "Poland"
+
+display_name = username or nickname or full_name or "Unknown"
+location = city or country or "Location unknown"
+
+print("\nExercise 9:")
+print(display_name)
+print(location)
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 10 ⬜ | MEDIUM
+# EXERCISE 10 ✅ | MEDIUM
 # ------------------------------------------------------------
-# Truthy/Falsy in practice.
-# Given:
-#   name  = "John"
-#   score = 0
-#   items = []
-#   data  = None
-#   ratio = 0.0
-#
-# For each variable:
-#   1. Print whether it is truthy or falsy using bool()
-#   2. Write a comment: is this the behavior you expected?
-#
-# Then fix this BUGGY check:
-#   if score:
-#       print("Player scored!")
-#   else:
-#       print("No score recorded")
-#
-# Why is this buggy? Write corrected version.
+name  = "John"
+score = 0
+items = []
+data  = None
+ratio = 0.0
+
+print("\nExercise 10:")
+print("1. Name: ", bool(name))     # True
+print("2. Score: ", bool(score))   # False
+print("3. Items: ", bool(items))   # False
+print("4. Data: ", bool(data))     # False
+print("5. Ratio: ", bool(ratio))   # False
+
+if score > 0:
+    print("Player scored!")
+else:
+    print("No score recorded")
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 11 ⬜ | MEDIUM
+# EXERCISE 11 ✅ | MEDIUM
 # ------------------------------------------------------------
-# Boolean arithmetic - True is 1, False is 0.
-#
-# Given:
-#   results = [True, False, True, True, False, True, False, True]
-#
-# Using sum() and len() and basic arithmetic:
-#   1. Count how many True values are in results
-#   2. Count how many False values are in results
-#   3. Calculate the percentage of True values
-#      Print as: "Pass rate: XX.X%"
-#   4. Is the pass rate above 50%?
-#      Print True or False
-#   5. Using bool arithmetic, calculate:
-#      True + True + False + True
-#      Print result and its type
+results = [True, False, True, True, False, True]
+
+mean = results.count(True) / len(results)
+
+print("\nExercise 11:")
+print("1. How many True values in results: ", results.count(True))
+print("2. How many False values in results: ", results.count(False))
+print(f"3. Pass rate: {mean:.1%}")
+print(f"4. Pass rate is above 50%: {mean >= 0.50}")
+print("5. True + True + False + True: ", True + True + False + True, type(True + True + False + True))
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 12 ⬜ | MEDIUM-HARD
+# EXERCISE 12 ✅ | MEDIUM-HARD
 # ------------------------------------------------------------
-# Chained comparisons - real use case.
-#
-# You are building a validation system.
-# Given:
-#   age         = 23
-#   score       = 85
-#   gpa         = 3.7
-#   is_enrolled = True
-#
-# Using chained comparisons and logical operators,
-# calculate and print True/False for each rule:
-#
-#   Rule 1: age is between 18 and 30 (inclusive)
-#   Rule 2: score is between 70 and 100 (inclusive)
-#   Rule 3: gpa is above 3.5 AND score is above 80
-#   Rule 4: is_enrolled is True AND age >= 18
-#   Rule 5: (gpa > 3.5 OR score > 90) AND is_enrolled
-#   Rule 6: NOT (age < 18 OR score < 60)
-#
-# Then print final verdict:
-#   is_eligible = Rule 1 AND Rule 2 AND Rule 4 AND Rule 5
-#   Print: "Eligible: True/False"
+age         = 23
+score       = 85
+gpa         = 3.7
+is_enrolled = True
+
+rule_1 = 18 <= age <= 30
+rule_2 = 70 <= score <= 100
+rule_3 = 3.5 < gpa and 80 < score
+rule_4 = is_enrolled is True and age >= 18
+rule_5 = (gpa > 3.5 or score > 90) and is_enrolled
+rule_6 = not (age < 18 or score < 60)
+
+is_eligible = rule_1 and rule_2 and rule_3 and rule_4 and rule_5 and rule_6
+
+print("\nExercise 12:")
+print("Eligible: ", is_eligible)
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 13 ⬜ | MEDIUM-HARD
+# EXERCISE 13 ✅ | MEDIUM-HARD
 # ------------------------------------------------------------
-# Operator precedence puzzle.
-# Predict the result of each WITHOUT running.
-# Write prediction as comment, then verify.
-# If wrong, write WHY in a comment.
-#
-#   not True or False
-#   not (True or False)
-#   True or False and False
-#   (True or False) and False
-#   not True and not False
-#   not (True and not False)
-#   True and False or True and True
-#   not False and not False or False
-#
-# After verifying, write the precedence rule as a comment:
-# "not binds __, and binds __, or binds __"
+print("\nExercise 13:")
+print(not True or False)                 # False
+print(not (True or False))               # False
+print(True or False and False)           # True
+print((True or False) and False)         # False
+print(not True and not False)            # False
+print(not (True and not False))          # False
+print(True and False or True and True)   # True
+print(not False and not False or False)  # True
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 14 ⬜ | HARD
+# EXERCISE 14 ✅ | HARD
 # ------------------------------------------------------------
 username = "anna_99"
 password = "Secret123"
 age      = 17
 email    = "anna@email.com"
 
-# Calculate and print True/False for each validation rule:
-#
-#   1. username_valid:
-#      - length between 4 and 20 (inclusive)
-#      - contains no spaces (" " not in username)
-#
-is_username_valid = (4 < len(username) < 20)
-
-#   2. password_valid:
-#      - length >= 8
-#      - is not all lowercase (not password.islower())
-#      - is not all uppercase (not password.isupper())
-
+is_username_valid = (4 < len(username) < 20) and not " " in username
 is_password_valid = (len(password) >= 8) and not password.islower() and not password.isupper()
-
-
-#   3. age_valid:
-#      - age >= 18
-#
 is_adult = age >= 18
-
-#   4. email_valid:
-#      - contains "@"
-#      - contains "."
-#      - does not start with "@"
-#      - does not end with "."
-#
-#   5. all_valid:
-#      - ALL four above are True
-#
-# Print a report:
-#   Username valid:  True/False
-#   Password valid:  True/False
-#   Age valid:       True/False
-#   Email valid:     True/False
-#   -------------------------
-#   All valid:       True/False
+is_email_valid = not email.startswith("@") and not email.endswith(".") and "@" in email and "." in email
+all_valid = is_username_valid and is_password_valid and is_adult and is_email_valid
 
 print("\nExercise 14:")
 print("Full user report:")
-print("Username valid: ", is_username_valid)
-print("Password valid: ", is_password_valid)
-print("Age valid: ", is_adult)
-print("Email valid: ", is_username_valid)
-print("-" * 25)
+print("Username valid: ".ljust(20), is_username_valid)
+print("Password valid: ".ljust(20), is_password_valid)
+print("Age valid: ".ljust(20), is_adult)
+print("Email valid: ".ljust(20), is_email_valid)
+print("-" * 26)
+print("All valid: ".ljust(20), all_valid)
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 15 ⬜ | HARD
+# EXERCISE 15 ✅ | HARD
 # ------------------------------------------------------------
-# Boolean logic puzzle - De Morgan's Laws.
-#
-# De Morgan's Laws state:
-#   not (A and B) == (not A) or  (not B)
-#   not (A or  B) == (not A) and (not B)
-#
-# Part 1: Verify De Morgan's Laws
-# For ALL combinations of A and B (True/True, True/False,
-# False/True, False/False), verify both laws hold.
-# Print each combination and whether the law holds (True/False)
-#
-# Part 2: Simplify these expressions using De Morgan's Laws
-# Compute both the original and simplified version
-# and verify they are equal:
-#
-#   Original 1: not (score > 60 and grade == "A")
-#   Original 2: not (is_active or is_admin)
-#   Original 3: not (age < 18 or score < 50)
-#
-# Use these values:
-#   score    = 75
-#   grade    = "B"
-#   is_active = True
-#   is_admin  = False
-#   age      = 20
-#
-# Part 3: Write a comment explaining in plain English
-# when De Morgan's Laws are useful in programming.
+print("\nExercise 15:")
+print("De Morgans' First Law: not (A and B) == (not A) or (not B): ")
+print("-" * 60)
+print("1. not (True and True) == (not True) or (not True): ", not (True and True) == (not True) or (not True))
+print("2. not (True and False) == (not True) or (not False): ", not (True and False) == (not True) or (not False))
+print("3. not (False and True) == (not False) or (not True): ", not (False and True) == (not False) or (not True))
+print("4. not (False and False) == (not False) or (not False): ", not (False and False) == (not False) or (not False))
+print()
+print("De Morgans' Second Law: not (A or B) == (not A) and (not B): ")
+print("-" * 60)
+print("1. not (True or True) == (not True) and (not True): ", (not (True or True)) == ((not True) and (not True)))
+print("2. not (True or False) == (not True) and (not False): ", (not (True or False)) == ((not True) and (not False)))
+print("3. not (False or True) == (not False) and (not True): ", (not (False or True)) == ((not False) and (not True)))
+print("4. not (False or False) == (not False) and (not False): ", (not (False or False)) == ((not False) and (not False)))
+
+score    = 75
+grade    = "B"
+is_active = True
+is_admin  = False
+age      = 20
+
+print()
+print('Original 1: not (score > 60 and grade == "A": ', not (score > 60 and grade == "A"))
+print('Patched 1: (not score > 60) or (not grade == "A"): ', (not score > 60) or (not grade == "A"))
+
+print()
+print("Original 2: not (is_active or is_admin): ", not (is_active or is_admin))
+print("Patched 2: (not is_active) and (not is_admin): ",(not is_active) and (not is_admin))
+
+print()
+print("Original 2: not (age < 18 or score < 50): ", not (age < 18 or score < 50))
+print("Patched 3: (not age < 18) and (not score < 50): ", (not age < 18) and (not score < 50))
