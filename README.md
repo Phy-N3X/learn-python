@@ -101,8 +101,8 @@
 | #  | Topic          | Description                     | Status  |
 |:--:|:---------------|:--------------------------------|:-------:|
 | 31 | `if`           | Basic condition                 |    ✅    |
-| 32 | `if/else`      | Two paths                       |    ⬜    |
-| 33 | `if/elif/else` | Multiple paths                  |    ⬜    |
+| 32 | `if/else`      | Two paths                       |    🔄    |
+| 33 | `if/elif/else` | Multiple paths                  |    🔄    |
 | 34 | Nested `if`    | `if` inside `if`                |    ⬜    |
 | 35 | One-line `if`  | Ternary operator                |    ⬜    |
 | 36 | `match/case`   | Pattern matching (Python 3.10+) |    ⬜    |
