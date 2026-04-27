@@ -11,7 +11,9 @@
 #   - an integer
 #   - a float
 #   - a complex number
+
 # Print each variable and its type.
+
 # Expected output:
 #   10 <class 'int'>
 #   3.14 <class 'float'>
@@ -39,14 +41,22 @@ print(random_complex, type(random_complex))
 # Create two variables:
 #   a = 17
 #   b = 5
+
 # Print the result of all seven arithmetic operations:
-#   addition, subtraction, multiplication,
-#   division, floor division, modulo, exponentiation
+#   - addition
+#   - subtraction
+#   - multiplication
+#   - division
+#   - floor division
+#   - modulo
+#   - exponentiation
+
 # Label each result clearly.
+
 # Expected output format:
 #   17 + 5 = 22
 #   17 - 5 = 12
-#   ... etc.
+#   etc.
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -71,7 +81,8 @@ print("a ** b: ", a ** b)
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Use a single variable x = 100
+# Use a single variable: x = 100
+
 # Apply all assignment operators step by step:
 #   += 50
 #   -= 30
@@ -80,6 +91,7 @@ print("a ** b: ", a ** b)
 #   //= 3
 #   %= 7
 #   **= 2
+
 # Print x after each operation.
 # ------------------------------------------------------------
 # CODE:
@@ -155,6 +167,7 @@ print(remainder)
 #   4. 5 factorial
 #   5. Ceiling of 4.1
 #   6. Floor of 4.9
+
 # Label each result.
 # ------------------------------------------------------------
 # CODE:
@@ -179,14 +192,13 @@ print("Floor of 4.9: ", math.floor(4.9))
 # ------------------------------------------------------------
 # Predict the output of each line without running it first.
 # Write your prediction as a comment, then run and verify.
-
-# print(10 / 2)
-# print(10 // 3)
-# print(10 % 3)
-# print(2 ** 8)
-# print(-7 // 2)
-# print(type(10 / 2))
-# print(type(10 // 2))
+#   print(10 / 2)
+#   print(10 // 3)
+#   print(10 % 3)
+#   print(2 ** 8)
+#   print(-7 // 2)
+#   print(type(10 / 2))
+#   print(type(10 // 2))
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -209,14 +221,13 @@ print(type(10 // 2))   # int
 # ------------------------------------------------------------
 # Operator precedence - predict the result without running.
 # Write prediction as comment, then verify.
-
-# a = 2 + 3 * 4
-# b = (2 + 3) * 4
-# c = 2 ** 3 ** 2
-# d = (2 ** 3) ** 2
-# e = 10 - 3 - 2
-# f = 100 / 10 * 2
-# g = 100 / (10 * 2)
+#   a = 2 + 3 * 4
+#   b = (2 + 3) * 4
+#   c = 2 ** 3 ** 2
+#   d = (2 ** 3) ** 2
+#   e = 10 - 3 - 2
+#   f = 100 / 10 * 2
+#   g = 100 / (10 * 2)
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -243,7 +254,6 @@ g = 100 / (10 * 2)     # 5.0
 # 2. Print whether 0.1 + 0.2 == 0.3
 # 3. Import math and use math.isclose() to compare them
 # 4. Print whether math.isclose(0.1 + 0.2, 0.3)
-# 5. Write a comment explaining WHY 0.1 + 0.2 != 0.3
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -265,11 +275,10 @@ print("a + b == 0.3 with 'math.isclose': ", math.isclose(num_a + num_b, 0.3))
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Banker's rounding investigation.
 # Print round() for these values:
 #   0.5, 1.5, 2.5, 3.5, 4.5, 5.5
+
 # Write a comment describing the pattern you notice.
-# Then explain: when does Python round UP vs DOWN?
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -320,18 +329,16 @@ print("6. ", math.gcd(252, 105))
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# int and float interaction.
-# For each operation below, predict BOTH the result
-# and the TYPE before running. Write as comments.
-
-# 3 + 4
-# 3.0 + 4
-# 3 + 4.0
-# 3.0 + 4.0
-# 10 / 2
-# 10 // 2
-# 10 // 2.0
-# 10.0 // 2
+# For each operation below, predict both the result
+# and the type running (write as comments).
+#   3 + 4
+#   3.0 + 4
+#   3 + 4.0
+#   3.0 + 4.0
+#   10 / 2
+#   10 // 2
+#   10 // 2.0
+#   10.0 // 2
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -353,9 +360,8 @@ print(10.0 // 2)     # 5.0 (float // int = float)
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Without using any formula written by hand,
-# use ONLY Python math operations to calculate:
-
+# Without using any formula written by hand, use only Python
+# math operations to calculate:
 #   1. Area of a circle with radius 7
 #      formula: π × r²
 
@@ -386,7 +392,7 @@ print("Compound interest: ", round(1000 * (1 + 0.05) ** 10, 2))
 # ------------------------------------------------------------
 # You have 1000 seconds total.
 
-# Using ONLY // and % operators, calculate:
+# Using only // and % operators, calculate:
 #   1. How many full hours in 1000 seconds?
 #   2. How many full minutes remain after removing full hours?
 #   3. How many seconds remain after removing full minutes?
@@ -423,7 +429,7 @@ print(f"Verify: {hours} * 3600 + {minutes} * 60 + {seconds} = {check}")
 # 1. Print 0.1 + 0.2 + 0.3
 # 2. Print 0.1 + 0.2 + 0.3 == 0.6
 # 3. Print (0.1 + 0.2) + 0.3 == 0.1 + (0.2 + 0.3)
-#    Are they equal? Why or why not? (write as comment)
+#    Are they equal? Why or why not?
 # 4. Use math.isclose() with custom tolerance rel_tol=1e-9
 #    to compare 0.1 + 0.2 + 0.3 with 0.6
 # 5. Print the result of:

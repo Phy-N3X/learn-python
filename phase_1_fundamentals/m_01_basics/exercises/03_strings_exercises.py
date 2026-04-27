@@ -506,6 +506,33 @@ print("8. Reversed text: ", text[::-1])
 # ------------------------------------------------------------
 print("\nExercise 14:")
 
+raw_data = """
+name,age,city,score
+Alice,25,Warsaw,98.5
+Bob,30,Krakow,87.2
+Charlie,22,Gdansk,95.0
+Diana,28,Poznan,91.7
+"""
+
+lines = raw_data.strip().splitlines()
+
+header = lines[0]
+
+line1 = lines[1]
+line2 = lines[2]
+line3 = lines[3]
+line4 = lines[4]
+
+
+
+
+
+
+print(header)
+print(data)
+
+
+
 
 
 

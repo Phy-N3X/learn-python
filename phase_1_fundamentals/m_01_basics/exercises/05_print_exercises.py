@@ -1,19 +1,13 @@
 # ============================================================
 # MODULE 01 | EXERCISES 05 - print()
 # ============================================================
-# 15 exercises - print() only
-# Allowed from previous lectures:
-#   - variables, type()                 (lecture 01)
-#   - numbers, math operators           (lecture 02)
-#   - string methods, slicing           (lecture 03)
-#   - bool, comparison operators        (lecture 04)
-# ============================================================
-
 
 # ------------------------------------------------------------
-# EXERCISE 1 ⬜ | EASY
+# EXERCISE 1 ✅ | EASY
 # ------------------------------------------------------------
-# Print each of these values using a SEPARATE print() call:
+# PROBLEM:
+# ------------------------------------------------------------
+# Print each of these values using a separate print() call:
 #   - integer: 2024
 #   - float: 3.14159
 #   - boolean: True
@@ -21,89 +15,146 @@
 #   - string: "Bioinformatics"
 #   - empty line (just blank space between outputs)
 #
-# Then print ALL of them in ONE single print() call
+# Then print all of them in one single print() call
 # with " | " as separator.
+
 # Expected single-line output:
 #   2024 | 3.14159 | True | None | Bioinformatics
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+print("Exercise 1: ")
+
+print("integer", 2024, sep=": ")
+print("float", 3.14159, sep=": ")
+print("boolean", True, sep=": ")
+print("None", sep=": ")
+print("string", "Bioinformatics", sep=": ")
+print()
+print(2024, 3.14159, True, None, "Bioinformatics",sep=" | ")
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 2 ⬜ | EASY
+# EXERCISE 2 ✅ | EASY
 # ------------------------------------------------------------
-# Using ONLY sep parameter (no f-strings, no concatenation):
+# PROBLEM:
+# ------------------------------------------------------------
+# Using only sep parameter (no f-strings, no concatenation):
 # Print the following outputs exactly:
-#
 #   2024-01-15
 #   192.168.1.100
 #   www.python.org
 #   John, 25, Warsaw, Python
 #   1 | 2 | 3 | 4 | 5
-#
-# Each line is a SEPARATE print() call.
-# Use variables for the values, not hardcoded strings.
+
+# Each line is a separate print() call.
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+print("\nExercise 2: ")
+
+print(2024, "01", 15, sep="-")
+print(192, 168, 1, 100, sep=".")
+print("www", "python", "org", sep=".")
+print("John", 25, "Warsaw", "Python", sep=", ")
+print(1, 2, 3, 4, 5, sep=" | ")
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 3 ⬜ | EASY
+# EXERCISE 3 ✅ | EASY
 # ------------------------------------------------------------
-# Using ONLY end parameter, produce this EXACT output
+# PROBLEM:
+# ------------------------------------------------------------
+# Using only end parameter, produce this exact output
 # using exactly 6 print() calls (one per word/symbol):
-#
 #   Hello, World! How are you?
-#
-# Each print() prints ONE word or symbol.
-# Hint: think carefully about spaces and the question mark.
+
+# Each print() prints one word or symbol.
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+print("\nExercise 3: ")
+
+print("Hello", end=", ")
+print("World", end="! ")
+print("How", end=" ")
+print("are", end=" ")
+print("you", end="")
+print("?")
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 4 ⬜ | EASY
+# EXERCISE 4 ✅ | EASY
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Print this formatted table using sep="\t":
-#
+
 #   Name        Age     City        Score
 #   ----------------------------------------
 #   Alice       25      Warsaw      98.5
 #   Bob         30      Krakow      87.2
 #   Charlie     22      Gdansk      95.0
-#
+
 # Use variables for all values.
 # The separator line should be exactly 40 "-" characters.
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+print("\nExercise 4: ")
+
+name_1, name_2, name_3 = "Alice", "Bob", "Charlie"
+age_1, age_2, age_3 = 25, 30, 22
+city_1, city_2, city_3 = "Warsaw", "Krakow", "Gdansk"
+score_1, score_2, score_3 = 98.5, 87.2, 95.0
+
+print("Name", "Age", "City", "Score", sep="\t ")
+print("-" * 40)
+print(name_1, age_1, city_1, score_1, sep=" \t ")
+print(name_2, age_2, city_2, score_2, sep=" \t ")
+print(name_3, age_3, city_3, score_3, sep="\t  ")
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 5 ⬜ | EASY
+# EXERCISE 5 ✅ | EASY
 # ------------------------------------------------------------
-# Special characters practice.
-# Using escape sequences, produce this EXACT output
-# in as FEW print() calls as possible:
-#
+# PROBLEM:
+# ------------------------------------------------------------
+# Using escape sequences, produce this exact output
+# in as few print() calls as possible:
 #   Line 1
 #   Line 2
 #   Line 3
-#
 #   Name:   Anna
 #   City:   Warsaw
-#
 #   Path: C:\Users\Anna\Documents
 #   Quote: She said "hello"
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+print("\nExercise 5: ")
+
+print("Line 1\nLine 2\nLine 3\n\nName:\tAnna\nCity:\tWarsaw")
+print("\nPath: C:\\Users\\Anna\\Documents\nQuote: She said \"hello\"")
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 6 ⬜ | EASY-MEDIUM
+# EXERCISE 6 ✅ | EASY-MEDIUM
 # ------------------------------------------------------------
-# Python 3.8+ debug format: f"{variable=}"
+# PROBLEM:
+# ------------------------------------------------------------
 # Given:
 #   x = 42
 #   name = "Anna"
 #   pi = 3.14159
 #   is_valid = True
 #   result = x * 2 + 10
-#
+
 # Use f"{variable=}" to print each variable.
 # Expected output format:
 #   x=42
@@ -111,25 +162,45 @@
 #   pi=3.14159
 #   is_valid=True
 #   result=94
-#
+
 # Then also print:
 #   x * 2 + 10 = 94    (using f"{x * 2 + 10=}")
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+print("\nExercise 6: ")
+
+x = 42
+name = "Anna"
+pi = 3.14159
+is_valid = True
+result = x * 2 + 10
+
+print(f"{x=}")
+print(f"{name=}")
+print(f"{pi=}")
+print(f"{is_valid=}")
+print(f"{result=}")
+
+print(f"{x * 2 + 10=}")
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 7 ⬜ | EASY-MEDIUM
+# EXERCISE 7✅ | EASY-MEDIUM
 # ------------------------------------------------------------
-# Build a formatted report using ONLY print() and sep/end.
-# NO f-strings allowed in this exercise!
-#
+# PROBLEM:
+# ------------------------------------------------------------
+# Build a formatted report using only print() and sep/end.
+# no f-strings allowed in this exercise!
+
 # Given:
 #   title    = "DNA Analysis Report"
 #   organism = "E. coli"
 #   length   = 4639221
 #   gc       = 50.8
-#
-# Produce this EXACT output:
+
+# Produce this exact output:
 #   ========================================
 #   DNA Analysis Report
 #   ========================================
@@ -137,13 +208,35 @@
 #   Length   : 4639221
 #   GC%      : 50.8
 #   ========================================
-#
+
 # Hint: use sep="" to control spacing precisely.
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+print("\nExercise 7: ")
+
+title = "DNA Analysis Report"
+organism = "E. coli"
+length = 4639221
+gc = 50.8
+
+print("=" * 40)
+print(title)
+print("=" * 40)
+print("Organism", ":", sep=" ", end="  ")
+print(organism)
+print("Length", ":", sep="   ", end="  ")
+print(length)
+print("Gc", ":", sep="       ", end="  ")
+print(gc)
+print("=" * 40)
 
 
 
 # ------------------------------------------------------------
-# EXERCISE 8 ⬜ | MEDIUM
+# EXERCISE 8 ✅ | MEDIUM
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # repr() vs str() investigation.
 # Given these strings:
@@ -151,20 +244,24 @@
 #   b = "name:\tAnna"
 #   c = "C:\\Users\\Anna"
 #   d = "   spaces   "
-#
-# For each string, print BOTH str() and repr() versions.
+
+# For each string, print both str() and repr() versions.
 # Format:
 #   str:  hello
 #         world
 #   repr: 'hello\nworld'
-#
+
 # Write a comment explaining when repr() is more useful
 # than str() for debugging.
-
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
 
 
 # ------------------------------------------------------------
-# EXERCISE 9 ⬜ | MEDIUM
+# EXERCISE 9 ✅ | MEDIUM
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Write to a file using print(file=f).
 #
@@ -183,11 +280,15 @@
 # After writing, READ the file and print its contents
 # to the screen to verify.
 # Use print(file=f) for writing - NOT f.write()!
-
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
 
 
 # ------------------------------------------------------------
-# EXERCISE 10 ⬜ | MEDIUM
+# EXERCISE 10 ✅ | MEDIUM
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Inline progress simulation using end="" and flush=True.
 #
@@ -209,11 +310,15 @@
 #   - Show percentage
 #
 # Hint: filled = "=" * step, empty = " " * (10 - step)
-
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
 
 
 # ------------------------------------------------------------
 # EXERCISE 11 ⬜ | MEDIUM
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Predict the EXACT output of each print() call.
 # Write prediction as comment BEFORE running.
@@ -228,11 +333,16 @@
 # print(*[1, 2, 3, 4, 5])
 # print(*[1, 2, 3, 4, 5], sep="-")
 # print(*"hello")
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
 
 
 
 # ------------------------------------------------------------
 # EXERCISE 12 ⬜ | MEDIUM-HARD
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Unicode art - print this pattern using unicode characters
 # and print() only:
@@ -250,11 +360,24 @@
 # Use variables for the box width so it's easy to resize.
 # Content must be centered within the box.
 # Hint: use string multiplication for ═ lines.
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
+length = 20
+height = 5
+
+print("\nExercise 12: ")
+print("\u2554","\u2550" * length, "\u2557")
+print("\u2551\n" * height, " " * length, "\u2551" * height)
+
+print("\u2554")
 
 
 
 # ------------------------------------------------------------
 # EXERCISE 13 ⬜ | MEDIUM-HARD
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Print a multiplication table using sep and end.
 # Produce this EXACT output:
@@ -272,11 +395,15 @@
 #   - Use end="" to stay on same line
 #   - Use print() to move to next line after each row
 #   - NO sep parameter needed
-
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
 
 
 # ------------------------------------------------------------
 # EXERCISE 14 ⬜ | HARD
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Build a complete pretty-printer for any data.
 # Given this data:
@@ -308,11 +435,15 @@
 #   └ \u2514  ─ \u2500  ┴ \u2534  ┘ \u2518
 #
 # Use f-strings for alignment within cells.
-
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------
 
 
 # ------------------------------------------------------------
 # EXERCISE 15 ⬜ | HARD
+# ------------------------------------------------------------
+# PROBLEM:
 # ------------------------------------------------------------
 # Build a real-time file logger using print(file=f, flush=True)
 #
@@ -335,3 +466,6 @@
 #   6. After all entries, print to screen only:
 #      "Log saved to session_log.txt"
 #   7. Read and print the log file to verify.
+# ------------------------------------------------------------
+# CODE:
+# ------------------------------------------------------------

@@ -8,9 +8,10 @@
 # PROBLEM:
 # ------------------------------------------------------------
 # Create three variables:
-#   name    =  your name (string)
-#   age     =  your age (integer)
-#   height  =  your height in meters (float)
+#   name = your name (string)
+#   age = your age (integer)
+#   height = your height in meters (float)
+
 # Then print all three on separate lines.
 # ------------------------------------------------------------
 # CODE:
@@ -32,9 +33,9 @@ print(height)
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Create a variable called 'language' with value "Python"
-# Print it, then change it to "Bioinformatics"
-# Print it again.
+# Create a variable called 'language' with value "Python".
+# Print it, then change it to "Bioinformatics". Print it again.
+
 # Expected output:
 #   Python
 #   Bioinformatics
@@ -56,8 +57,8 @@ print(language)
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Check and print the type of each variable below.
-# Use type() function.
+# Check and print the type of each variable below. Use type().
+
 # Expected output: <class 'int'>, <class 'str'> etc.
 #   x = 42
 #   y = 3.14
@@ -85,9 +86,9 @@ print(type(q))
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Assign the value 100 to three variables at once:
-# a, b and c
-# Print all three.
+# Assign the value 100 to three variables at once: a, b and c.
+# Then print all of them.
+
 # Expected output:
 #   100
 #   100
@@ -114,6 +115,7 @@ print(c)
 #   city = "Gdansk"
 #   country = "Poland"
 #   continent = "Europe"
+
 # Then print all three.
 # ------------------------------------------------------------
 # CODE:
@@ -136,8 +138,10 @@ print(continent)
 # Create two variables:
 #   first = 111
 #   second = 999
-# Swap their values WITHOUT using a third variable.
+
+# Swap their values without using a third variable.
 # Print both before and after the swap.
+
 # Expected output:
 #   Before: 111 999
 #   After: 999 111
@@ -163,9 +167,9 @@ print("After: ", first, second)
 # PROBLEM:
 # ------------------------------------------------------------
 # Create a variable 'result' and assign None to it.
-# Print it and its type.
-# Then assign the value 42 to it.
+# Print it and its type, then assign the value 42 to it.
 # Print it and its type again.
+
 # Expected output:
 #   None
 #   <class 'NoneType'>
@@ -191,9 +195,8 @@ print(type(result))
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Below are badly named variables.
-# Rewrite them using correct snake_case naming conventions.
-# Just rename - keep the same values.
+# Below are badly named variables. Rewrite them using correct
+# snake_case naming conventions. Just rename - keep the same values.
 
 # UsersAge = 30
 # FIRSTNAME = "Mark"
@@ -219,6 +222,7 @@ is_logged_in = True
 # PROBLEM:
 # ------------------------------------------------------------
 # Python is dynamically typed - a variable can change type.
+
 # Create a variable x and assign these values one by one,
 # printing the value and type after each assignment:
 #   1. integer 10
@@ -255,9 +259,9 @@ print(type(x))
 # ------------------------------------------------------------
 # Create variables for a student record:
 #   student_name, student_age, student_gpa, is_active
-# Assign any realistic values.
-# Then reassign all of them in one line using multiple assignment.
-# Print all values before and after.
+
+# Assign any realistic values. Then reassign all of them in one
+# line using multiple assignment. Print all values before and after.
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -281,12 +285,14 @@ print("After: ", student_name, student_age, student_gpa, is_active)
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Investigate memory with id()
+# Investigate memory with id().
+
 # Create:
 #   a = 5
 #   b = 5
 #   c = 500
 #   d = 500
+
 # Print id() for all four variables.
 # Are a and b pointing to the same object?
 # Are c and d pointing to the same object?
@@ -301,12 +307,10 @@ b = 5
 c = 500
 d = 500
 
-print(id(a))
-print(id(b))
-print(id(c))
-print(id(d))
-
-# a,b have same memory address, so do c,d
+print(id(a))    # same memory address as b
+print(id(b))    # same memory address as a
+print(id(c))    # same memory address as d
+print(id(d))    # same memory address as c
 
 
 
@@ -315,19 +319,21 @@ print(id(d))
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Predict the output before running the code.
-# Write your prediction as a comment, then run and check.
+# Predict the output before running the code. Write your
+# prediction as a comment, then run and check.
 
 #   x = 10
 #   y = x
 #   x = 20
-# What is y here? Write prediction as comment: # y = ?
+
+# What is y here?
 #   print(y)
-#
+
 #   a = [1, 2, 3]
 #   b = a
 #   a = [4, 5, 6]
-# What is b here? Write prediction as comment: # b = ?
+
+# What is b here?
 #   print(b)
 # ------------------------------------------------------------
 # CODE:
@@ -337,14 +343,13 @@ print("\nExercise 12:")
 x = 10
 y = x
 x = 20
-# y has a value of 10
-print(y)
+print(y)       # y has a value of 10
+
 
 a = [1, 2, 3]
 b = a
 a = [4, 5, 6]
-# b has a value of [1, 2, 3]
-print(b)
+print(b)       # b has a value of [1, 2, 3]
 
 
 
@@ -365,11 +370,11 @@ print(b)
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
-# 2fast = "too fast"    # Variable name cannot start with a number
-# my-var = 100          # Variable name cannot have a hyphen
-# class = "Biology"     # Variable name cannot be a keyword
-# user name = "Anna"    # Variable name cannot have spaces
-# $price = 9.99         # Variable name cannot have special symbols
+# 2fast = "too fast"     # Variable name cannot start with a number
+# my-var = 100           # Variable name cannot have a hyphen
+# class = "Biology"      # Variable name cannot be a keyword
+# user name = "Anna"     # Variable name cannot have spaces
+# $price = 9.99          # Variable name cannot have special symbols
 
 too_fast = "too fast"
 my_var = 100
@@ -384,18 +389,20 @@ dollar_price = 9.99
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Create a simple "profile" using only variables.
+# Create a simple profile using only variables.
+
 # Requirements:
 #   - At least 6 variables describing a person
 #   - Use correct types (str, int, float, bool)
 #   - All names must follow snake_case
 #   - One variable must be None (data not available yet)
 #   - Print all variables with a descriptive label
+
 # Example output format:
 #   Name: Anna
 #   Age: 25
 #   GPA: 4.75
-#   ...
+#   etc.
 # ------------------------------------------------------------
 # CODE:
 # ------------------------------------------------------------
@@ -422,27 +429,28 @@ print(profile_is_graduate)
 # ------------------------------------------------------------
 # PROBLEM:
 # ------------------------------------------------------------
-# Chain assignment puzzle.
-# Trace through this code step by step.
-# Before each print, write a comment with your prediction.
-# Then run the code and verify.
+# Trace through this code step by step. Before each print, write
+# a comment with your prediction. Then run the code and verify.
 
 #   a = 1
 #   b = 2
 #   c = 3
-#
+
 #   a, b, c = b, c, a
-# Prediction: a=?, b=?, c=?
+
+# Prediction: a = ?, b = ?, c = ?
 #   print(a, b, c)
 
 #   a, b = a + b, a - b
-# Prediction: a=?, b=?
+
+# Prediction: a = ?, b = ?
 #   print(a, b)
-#
+
 #   c = a
 #   a = b
 #   b = c
-# Prediction: a=?, b=?
+
+# Prediction: a = ?, b = ?
 #   print(a, b)
 
 # What is the final order of the original values 1, 2, 3?
