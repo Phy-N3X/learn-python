@@ -74,8 +74,8 @@
 |:--:|:------------------------------|:-------------------------------------|:-------:|
 | 13 | Indexing                      | Accessing a character by position    |    ✅    |
 | 14 | Negative indexes              | Counting from the end                |    ✅    |
-| 15 | Slicing                       | Cutting out fragments `[start:stop]` |    ⬜    |
-| 16 | Slicing with step             | Every nth character `[::step]`       |    ⬜    |
+| 15 | Slicing                       | Cutting out fragments `[start:stop]` |    ✅    |
+| 16 | Slicing with step             | Every nth character `[::step]`       |    ✅    |
 | 17 | `len()`                       | String length                        |    ⬜    |
 | 18 | `.upper()` `.lower()`         | Changing letter case                 |    ⬜    |
 | 19 | `.strip()`                    | Removing whitespace                  |    ⬜    |
