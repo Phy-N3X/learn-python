@@ -483,7 +483,7 @@ print("Part B:")
 palindrome = "racecar"
 
 print(f"First and last character: {palindrome[0]} = {palindrome[6]}")
-print(f"Second and secont-to-last character: {palindrome[1]} = {palindrome[5]}")
+print(f"Second and second-to-last character: {palindrome[1]} = {palindrome[5]}")
 print(f"Third and third-to-last character: {palindrome[2]} = {palindrome[4]}")
 print(f"Middle character: {palindrome[3]}")
 
